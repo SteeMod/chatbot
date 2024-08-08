@@ -2,16 +2,18 @@ import streamlit as st
 import openai
 
 # Set your OpenAI API key
-openai.api_key = 'sk-proj-BaKsrsQ1JWRPXVV5Az6FT3BlbkFJATy78HWXhfTaRalui6dw'
+openai.api_key = 'YOUR_OPENAI_API_KEY'
 
 # Function to get response from OpenAI API
 def get_openai_response(prompt):
-    response = openai.Completion.create(
-        engine="text-davinci-003",
-        prompt=prompt,
-        max_tokens=150
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": prompt}
+        ]
     )
-    return response.choices[0].text.strip()
+    return response.choices[0].message['content'].strip()
 
 # Streamlit app
 st.title("OpenAI ChatBot with Streamlit")
