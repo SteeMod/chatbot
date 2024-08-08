@@ -14,7 +14,7 @@ def get_openai_response(prompt):
 # Streamlit app
 st.title("OpenAI ChatBot with Streamlit")
 
-user_input = st.text_input("You: ", "Type your message here...")
+user_input = st.text_input("You: ")
 if st.button("Send"):
     response = get_openai_response(user_input)
     st.write("Bot:", response)
