@@ -1,10 +1,6 @@
-import streamlit as st
 import openai
+import streamlit as st
 
-# Set your OpenAI API key
-openai.api_key = 'YOUR_OPENAI_API_KEY'
-
-# Function to get response from OpenAI API
 def get_openai_response(prompt):
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
