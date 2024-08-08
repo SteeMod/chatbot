@@ -18,3 +18,27 @@ user_input = st.text_input("You: ", "Type your message here...")
 if st.button("Send"):
     response = get_openai_response(user_input)
     st.write("Bot:", response)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    #GOD IS GOOD
