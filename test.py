@@ -7,12 +7,16 @@ api_key = 'your_openai_api_key'
 openai.api_key = api_key
 
 def generate_response(prompt):
-    response = openai.Completion.create(
-        engine="text-davinci-003",
-        prompt=prompt,
-        max_tokens=150
-    )
-    return response.choices[0].text.strip()
+    try:
+        response = openai.Completion.create(
+            engine="text-davinci-003",
+            prompt=prompt,
+            max_tokens=150
+        )
+        return response.choices[0].text.strip()
+    except Exception as e:
+        print(f"Error generating response: {e}")
+        return "Sorry, I couldn't generate a response."
 
 def chatbot():
     print("Welcome to the OpenAI Chatbot! Type 'exit' to end the conversation.")
@@ -21,6 +25,7 @@ def chatbot():
         if user_input.lower() == 'exit':
             print("Goodbye!")
             break
+        print("Generating response...")
         response = generate_response(user_input)
         print(f"OpenAI: {response}")
 
