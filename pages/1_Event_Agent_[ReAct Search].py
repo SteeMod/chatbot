@@ -41,7 +41,7 @@ if submit_button:
         }
     
     with st.spinner(f'Looking for {location} {event_type} in {time_frame}...'):
-        response = requests.post("http://localhost:8000/event", json=payload).json()
+        response = requests.post("http://localhost:8000", json=payload).json()
         st.session_state.event_response = response["response"]
     
 # display output
