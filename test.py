@@ -4,6 +4,7 @@ import os
 # Retrieve the API key from environment variables
 api_key = os.getenv('OPENAI_API_KEY')
 
+st.error("There was an error with the API key")
 if not api_key:
     raise ValueError("No OpenAI API key found. Please set the OPENAI_API_KEY environment variable.")
 
