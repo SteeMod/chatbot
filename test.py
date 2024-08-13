@@ -14,12 +14,12 @@ openai.api_key = api_key
 
 def generate_response(prompt):
     try:
-        response = openai.ChatCompletion.create(
-            model="gpt-4",
-            messages=[{"role": "user", "content": prompt}],
+        response = openai.Completion.create(
+            engine="text-davinci-003",  # Use the appropriate engine
+            prompt=prompt,
             max_tokens=150
         )
-        return response.choices[0].message["content"].strip()
+        return response.choices[0].text.strip()
     except Exception as e:
         st.error(f"Error generating response: {e}")
         return "Sorry, I couldn't generate a response."
