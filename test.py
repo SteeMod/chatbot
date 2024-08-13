@@ -3,11 +3,12 @@ import json
 import os
 import streamlit as st
 
-st.error("No OpenAI API key found. Please set the OPENAI_API_KEY environment variable.")
-raise ValueError("No OpenAI API key found. Please set the OPENAI_API_KEY environment variable.")
-
 # Initialize the OpenAI API client
 api_key = os.getenv("OPENAI_API_KEY")
+
+if not api_key:
+    st.error("No OpenAI API key found. Please set the OPENAI_API_KEY environment variable.")
+    raise ValueError("No OpenAI API key found. Please set the OPENAI_API_KEY environment variable.")
 
 def generate_response(prompt):
     try:
