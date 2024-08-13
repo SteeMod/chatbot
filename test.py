@@ -4,7 +4,7 @@ import os
 import streamlit as st
 
 # Initialize the OpenAI API client
-api_key = os.getenv("OPENAI_API_KEY")
+api_key = os.get("OPENAI_API_KEY")
 
 if not api_key:
     st.error("No OpenAI API key found. Please set the OPENAI_API_KEY environment variable.")
