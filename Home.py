@@ -39,18 +39,6 @@ def check_password():
 
 # Header
 title = "myfitnessagent"
-logo_path = "../../../logo.png"
-
-col1_header, col2_header = st.columns([1, 10])
-
-with col1_header:
-    st.image(logo_path, width=100)
-
-# Display the title in the second column
-with col2_header:
-    st.title(title)
-
-st.write("")
 
 # Set up the main app page
 st.subheader("Welcome to myfitnessagent")
