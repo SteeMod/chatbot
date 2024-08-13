@@ -5,7 +5,7 @@ import re
 
 def call_chat_model(client, messages):
     return client.chat.completions.create(
-        model="gpt-3.5",
+        model="gpt-3.5 Turbo",
         messages=messages,
         temperature=1,
         max_tokens=4096
