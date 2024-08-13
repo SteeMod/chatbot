@@ -1,7 +1,8 @@
 import openai
+import os
 
 # Replace 'your-api-key' with your actual OpenAI API key
-openai.api_key = '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'
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def chat_with_ai():
     print("Start chatting with the AI (type 'exit' to stop):")
@@ -19,5 +20,5 @@ def chat_with_ai():
         print("AI:", ai_response)
         messages.append({"role": "assistant", "content": ai_response})
 
-# Start the chat
+# Call the function to start the chat
 chat_with_ai()
