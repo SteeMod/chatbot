@@ -1,8 +1,11 @@
-
 import hmac
+import os
 import streamlit as st
 
 st.set_page_config(layout="wide")
+
+# Retrieve the password from environment variables
+PASSWORD = os.getenv("MY_APP_PASSWORD")
 
 def check_password():
     """Returns `True` if the user had a correct password."""
@@ -20,7 +23,7 @@ def check_password():
             "passwords"
         ] and hmac.compare_digest(
             st.session_state["password"],
-            st.secrets.passwords[st.session_state["username"]],
+            PASSWORD,
         ):
             st.session_state["password_correct"] = True
             del st.session_state["password"]  # Don't store the username or password.
