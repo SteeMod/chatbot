@@ -1,7 +1,8 @@
 import openai
+import os
 
 # Set your OpenAI API key
-api_key = 'your_openai_api_key'
+api_key = os.getenv('OPENAI_API_KEY')
 
 # Initialize the OpenAI API client
 openai.api_key = api_key
