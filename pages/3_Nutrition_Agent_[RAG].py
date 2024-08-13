@@ -26,5 +26,6 @@ if st.button("Request nutrition options"):
     # response = call_chat_model(user_input)
     data = requests.post("https://localhost:8000/nutrition").json()
     st.session_state.nutrition_response = data["response"]
+    st.error("Failed to fetch response")
     
 st.write(st.session_state.nutrition_response)
