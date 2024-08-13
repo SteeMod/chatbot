@@ -11,12 +11,6 @@ if "nutrition_response" not in st.session_state:
 
 col1, col2 = st.columns([1, 10])
 
-with col1:
-    st.image(logo_path, width=100)
-
-# Display the title in the second column
-with col2:
-    st.title(title)
 
 
 

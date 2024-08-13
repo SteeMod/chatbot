@@ -8,19 +8,14 @@ st.set_page_config(layout="wide")
 
 # Header
 title = "myfitnessagent"
-"
+
 
 if "event_response" not in st.session_state:
     st.session_state.event_response = ""
 
 col1, col2 = st.columns([1, 10])
 
-with col1:
-    st.image(logo_path, width=100)
 
-# Display the title in the second column
-with col2:
-    st.title(title)
 
 
 
