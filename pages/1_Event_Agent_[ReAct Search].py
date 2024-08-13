@@ -8,7 +8,7 @@ st.set_page_config(layout="wide")
 
 # Header
 title = "myfitnessagent"
-logo_path = "../../../logo.png"
+"
 
 if "event_response" not in st.session_state:
     st.session_state.event_response = ""

@@ -10,7 +10,7 @@ st.set_page_config(layout="wide")
 
 # Header
 title = "myfitnessagent"
-logo_path = "../../../logo.png"
+
 
 col1, col2 = st.columns([1, 10])
 
