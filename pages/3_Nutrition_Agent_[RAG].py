@@ -24,7 +24,7 @@ user_input = st.text_input(label="nutrition_agent", label_visibility="hidden", p
 # button to submit request
 if st.button("Request nutrition options"):
     # response = call_chat_model(user_input)
-    data = requests.post("http://10.0.0.63:8000/nutrition").json()
+    data = requests.post("http://:8000/nutrition").json()
     st.session_state.nutrition_response = data["response"]
     
 st.write(st.session_state.nutrition_response)
