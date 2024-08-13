@@ -1,38 +1,44 @@
-import http.client
-import json
+import openai
 import os
-import streamlit as st
+import openai
+import os
 
-# Initialize the OpenAI API client
-api_key = os.getenv("OPENAI_API_KEY")
+# Replace 'your-api-key' with your actual OpenAI API key
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
-if not api_key:
-    st.error("No OpenAI API key found. Please set the OPENAI_API_KEY environment variable.")
-    raise ValueError("No OpenAI API key found. Please set the OPENAI_API_KEY environment variable.")
+def chat_with_ai():
+    print("Start chatting with the AI (type 'exit' to stop):")
+    messages = []
+    while True:
+        user_input = input("You: ")
+        if user_input.lower() == 'exit':
+            break
+        messages.append({"role": "user", "content": user_input})
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=messages
+        )
+        ai_response = response.choices[0].message['content'].strip()
+        print("AI:", ai_response)
+        messages.append({"role": "assistant", "content": ai_response})
 
-def generate_response(prompt):
-    try:
-        conn = http.client.HTTPSConnection("api.openai.com")
-        payload = json.dumps({
-            "model": "text-davinci-003",  # Use the appropriate model
-            "prompt": prompt,
-            "max_tokens": 150
-        })
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {api_key}"
-        }
-        conn.request("POST", "/v1/completions", payload, headers)
-        response = conn.getresponse()
-        data = response.read()
-        conn.close()
-        
-        if response.status == 200:
-            response_data = json.loads(data)
-            return response_data['choices'][0]['text'].strip()
-        else:
-            st.error(f"Error generating response: {response.status}")
-            return "Sorry, I couldn't generate a response."
-    except Exception as e:
-        st.error(f"Error generating response: {e}")
-        return "Sorry, I couldn't generate a response."
+# Call the function to start the chat
+chat_with_ai()
+def chat_with_ai():
+    print("Start chatting with the AI (type 'exit' to stop):")
+    messages = []
+    while True:
+        user_input = input("You: ")
+        if user_input.lower() == 'exit':
+            break
+        messages.append({"role": "user", "content": user_input})
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=messages
+        )
+        ai_response = response.choices[0].message['content'].strip()
+        print("AI:", ai_response)
+        messages.append({"role": "assistant", "content": ai_response})
+
+# Start the chat
+chat_with_ai()
