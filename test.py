@@ -5,8 +5,8 @@ import streamlit as st
 # Retrieve the API key from environment variables
 api_key = os.getenv('OPENAI_API_KEY')
 
-st.error("There was an error with the API key")
 if not api_key:
+    st.error("No OpenAI API key found. Please set the OPENAI_API_KEY environment variable.")
     raise ValueError("No OpenAI API key found. Please set the OPENAI_API_KEY environment variable.")
 
 # Initialize the OpenAI API client
@@ -21,13 +21,15 @@ def generate_response(prompt):
         )
         return response.choices[0].message["content"].strip()
     except Exception as e:
-        print(f"Error generating response: {e}")
+        st.error(f"Error generating response: {e}")
         return "Sorry, I couldn't generate a response."
 
 def chatbot():
-    prompt = "Tell me a joke."
-    response = generate_response(prompt)
-    print(response)
+    st.title("Chatbot")
+    prompt = st.text_input("Enter your prompt:")
+    if prompt:
+        response = generate_response(prompt)
+        st.write(response)
 
 if __name__ == "__main__":
     chatbot()
