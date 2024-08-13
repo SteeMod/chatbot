@@ -1,27 +1,13 @@
 import streamlit as st
-from openai import OpenAI
 import requests
-
-client = OpenAI()
 
 st.set_page_config(layout="wide")
 
 # Header
 title = "myfitnessagent"
 
-
 if "event_response" not in st.session_state:
     st.session_state.event_response = ""
-
-col1, col2 = st.columns([1, 10])
-
-
-
-
-
-if (st.session_state.get("password_correct") == None) or (st.session_state.get("password_correct") == False):
-    st.write("Please login first.")
-    st.stop()
 
 # Set up the main app page
 st.subheader("Welcome to myfitnessagent - let me help you find your next local athletic event!")
@@ -35,15 +21,14 @@ with st.form(key='event_form'):
 
 if submit_button:
     payload = {
-            "event_type": event_type,
-            "location": location,
-            "time_frame": time_frame
-        }
-    
+        "event_type": event_type,
+        "location": location,
+        "time_frame": time_frame
+    }
+
     with st.spinner(f'Looking for {location} {event_type} in {time_frame}...'):
-        response = requests.post("http://localhost:8000", json=payload).json()
-        st.session_state.event_response = response["response"]
-    
-# display output
+        response = requests.post("http://localhost:8000", json=payload).json()  # Ensure this endpoint is correct
+        st.session_state.event_response = response.get("response", "No response from server")
+
+# Display output
 st.write(st.session_state.event_response)
-    
