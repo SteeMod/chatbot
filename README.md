@@ -1,19 +1,38 @@
-# 💬 Chatbot template
+# Streamlit AI Agents Application
 
-A simple Streamlit app that shows how to build a chatbot using OpenAI's GPT-3.5.
+This Streamlit application serves as an interface for interacting with three distinct AI agents, each designed to perform specific tasks. The application is structured with a main entry point (Home.py) and additional pages for each agent, facilitating user interaction and showcasing the capabilities of each AI model. The streamlit application also uses a fastapi backend for a agent #1 (ReAct) and agent #3 (RAG) endpoints.
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://chatbot-template.streamlit.app/)
+## Installation
 
-### How to run it on your own machine
+To run this application, you need to have Python installed on your system.
 
-1. Install the requirements
+Once Python is installed, you can install Streamlit and other required packages using pip:
 
-   ```
-   $ pip install -r requirements.txt
-   ```
+Add any other packages your application depends on in the same way.
 
-2. Run the app
+You also need OpenAI, Langchain, and Tavily API keys.
 
-   ```
-   $ streamlit run streamlit_app.py
-   ```
+## Running the Application
+
+To start the application, navigate to the application's root directory in your terminal and run:
+
+streamlit run Home.py
+
+This command launches the Streamlit web server and opens the application in your default web browser.
+
+To run the fastapi backend for the LLM endpoints:
+
+fastapi dev main.py
+
+Application Structure
+Home.py: The main entry point of the application. It provides an overview of the different AI agents.
+
+/pages:
+
+Each page within this folder is connected to a different AI agent, designed to showcase a specific functionality or use case. The pages include:
+Page 1: Connected to AI Agent 1. ReAct agent with web search tools.
+Page 2: Connected to AI Agent 2. Basic agent built on OpenAI API with memory and Chain of Thought
+Page 3: Connected to AI Agent 3. Retrieval Augmented Generation Pipeline
+
+Usage
+After launching the application, use the sidebar to navigate between the home page and the different AI agents. Each page provides an interface to interact with the respective AI agent, allowing you to input data or queries and receive responses.
