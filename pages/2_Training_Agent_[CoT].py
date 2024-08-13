@@ -12,11 +12,6 @@ st.set_page_config(layout="wide")
 title = "myfitnessagent"
 
 
-
-
-
-
-
 if (st.session_state.get("password_correct") == None) or (st.session_state.get("password_correct") == False):
     st.write("Please login first.")
     st.stop()
