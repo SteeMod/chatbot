@@ -21,7 +21,7 @@ user_input = st.text_input(label="nutrition_agent", label_visibility="hidden", p
 # button to submit request
 if st.button("Request nutrition options"):
     try:
-        response = requests.post("https://localhost:8507", json={"query": user_input})
+        response = requests.post("https://localhost:8509", json={"query": user_input})
         response.raise_for_status()  # Check if the request was successful
         data = response.json()
         st.session_state.nutrition_response = data.get("response", "No response found.")
