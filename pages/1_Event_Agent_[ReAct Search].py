@@ -1,5 +1,5 @@
 import streamlit as st
-from openai import OpenAI
+import openai
 import requests
 import os
 
@@ -9,7 +9,7 @@ if not api_key:
     st.error("API key not found. Please set the OPENAI_API_KEY environment variable.")
     st.stop()
 
-client = OpenAI(api_key=api_key)
+openai.api_key = api_key
 
 st.set_page_config(layout="wide")
 
@@ -40,18 +40,17 @@ if submit_button:
     if not event_type or not location or not time_frame:
         st.error("Please fill in all fields.")
     else:
-        payload = {
-            "event_type": event_type,
-            "location": location,
-            "time_frame": time_frame
-        }
+        prompt = f"Find a {event_type} event in {location} in {time_frame}."
         
         with st.spinner(f'Looking for {location} {event_type} in {time_frame}...'):
             try:
-                response = requests.post("https://localhost:8501", json=payload)
-                response.raise_for_status()  # Check for HTTP errors
-                st.session_state.event_response = response.json().get("response", "No response found.")
-            except requests.exceptions.RequestException as e:
+                response = openai.Completion.create(
+                    engine="text-davinci-003",
+                    prompt=prompt,
+                    max_tokens=150
+                )
+                st.session_state.event_response = response.choices[0].text.strip()
+            except openai.error.OpenAIError as e:
                 st.error(f"An error occurred: {e}")
     
 # Display output
