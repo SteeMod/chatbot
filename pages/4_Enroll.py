@@ -2,7 +2,7 @@ import streamlit as st
 import my_prompts
 import re
 from openai import OpenAI
-from base_model_utils import call_chat_model
+from base_model_utils2 import call_chat_model
 
 client = OpenAI()
 
