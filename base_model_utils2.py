@@ -1,18 +1,6 @@
-import re
+import streamlit as st
 import base64
-
-def call_chat_model(client, messages):
-    return client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=messages,
-        temperature=1,
-        max_tokens=4096
-    )
-
-def parse_messages(text):
-    message_pattern = r"<message>(.*?)</message>"
-    message = re.findall(message_pattern, text, re.DOTALL)
-    return message[0] if message else ""
+import re
 
 def call_chat_model(client, messages):
     return client.chat.completions.create(
