@@ -48,7 +48,7 @@ if submit_button:
         
         with st.spinner(f'Looking for {location} {event_type} in {time_frame}...'):
             try:
-                response = requests.post("https://localhost:8000/event", json=payload)
+                response = requests.post("https://turbo-space-rotary-phone-4jgrqqvgpx7r3g6p-8507.app.github.dev/", json=payload)
                 response.raise_for_status()  # Check for HTTP errors
                 st.session_state.event_response = response.json().get("response", "No response found.")
             except requests.exceptions.RequestException as e:
