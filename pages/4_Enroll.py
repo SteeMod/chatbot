@@ -2,7 +2,7 @@ import streamlit as st
 import my_prompts
 import re
 from openai import OpenAI
-from base_model_utils2 import call_chat_model
+from base_model_utils2 import call_chat_model, parse_messages
 
 client = OpenAI()
 
@@ -24,14 +24,6 @@ if "internal_messages" not in st.session_state:
 
 if "external_messages" not in st.session_state:
     st.session_state.external_messages = []
-
-# Function to extract tracker tags from response
-def parse_messages(text):
-    message_pattern = r"<message>(.*?)</message>"
-
-    message = re.findall(message_pattern, text, re.DOTALL)
-
-    return message[0] if message else ""
 
 # Create two columns
 col1, col2 = st.columns([1, 1])
