@@ -1,5 +1,5 @@
 import streamlit as st
-import prompts
+import my_prompts
 import re
 from openai import OpenAI
 from base_model_utils import call_chat_model
@@ -9,7 +9,7 @@ client = OpenAI()
 st.set_page_config(layout="wide")
 
 # Header
-title = "BuaChat"
+title = "myfitnessagent"
 
 if (st.session_state.get("password_correct") == None) or (st.session_state.get("password_correct") == False):
     st.write("Please login first.")
@@ -19,7 +19,7 @@ if (st.session_state.get("password_correct") == None) or (st.session_state.get("
 if "internal_messages" not in st.session_state:
     st.session_state.internal_messages = [{
         "role": "system",
-        "content": prompts.system_prompt
+        "content": my_prompts.system_prompt
     }]
 
 if "external_messages" not in st.session_state:
