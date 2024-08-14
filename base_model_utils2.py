@@ -1,6 +1,5 @@
-import streamlit as st
-import base64
 import re
+import base64
 
 def call_chat_model(client, messages):
     return client.chat.completions.create(
@@ -10,9 +9,24 @@ def call_chat_model(client, messages):
         max_tokens=4096
     )
 
-def call_chat_model(client):
+def parse_messages(text):
+    message_pattern = r"<message>(.*?)</message>"
+    message = re.findall(message_pattern, text, re.DOTALL)
+    return message[0] if message else ""
 
+def call_chat_model(client, messages):
+    return client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=messages,
+        temperature=1,
+        max_tokens=4096
+    )
 
+def call_image_model(client, file):
+    # Read the file-like object (uploaded_file)
+    image_data = file.read()
+    # Encode the file data in base64
+    base64_image = base64.b64encode(image_data).decode('utf-8')
 
     # Create API request
     response = client.chat.completions.create(
