@@ -1,25 +1,27 @@
 import streamlit as st
 from openai import OpenAI
 import requests
+import os
 
-client = OpenAI()
+# Initialize the OpenAI client with your API key from environment variables
+api_key = os.getenv("OPENAI_API_KEY")
+if not api_key:
+    st.error("API key not found. Please set the OPENAI_API_KEY environment variable.")
+    st.stop()
+
+client = OpenAI(api_key=api_key)
 
 st.set_page_config(layout="wide")
 
 # Header
-title = "myfitnessagent"
-
+st.title("myfitnessagent")
 
 if "event_response" not in st.session_state:
     st.session_state.event_response = ""
 
 col1, col2 = st.columns([1, 10])
 
-
-
-
-
-if (st.session_state.get("password_correct") == None) or (st.session_state.get("password_correct") == False):
+if not st.session_state.get("password_correct"):
     st.write("Please login first.")
     st.stop()
 
@@ -34,16 +36,23 @@ with st.form(key='event_form'):
     submit_button = st.form_submit_button(label='Submit')
 
 if submit_button:
-    payload = {
+    # Validate inputs
+    if not event_type or not location or not time_frame:
+        st.error("Please fill in all fields.")
+    else:
+        payload = {
             "event_type": event_type,
             "location": location,
             "time_frame": time_frame
         }
+        
+        with st.spinner(f'Looking for {location} {event_type} in {time_frame}...'):
+            try:
+                response = requests.post("https://localhost:8000/event", json=payload)
+                response.raise_for_status()  # Check for HTTP errors
+                st.session_state.event_response = response.json().get("response", "No response found.")
+            except requests.exceptions.RequestException as e:
+                st.error(f"An error occurred: {e}")
     
-    with st.spinner(f'Looking for {location} {event_type} in {time_frame}...'):
-        response = requests.post("http://localhost:8000/event", json=payload).json()
-        st.session_state.event_response = response["response"]
-    
-# display output
+# Display output
 st.write(st.session_state.event_response)
-    
