@@ -46,7 +46,7 @@ if submit_button:
         with st.spinner(f'Looking for {location} {event_type} in {time_frame}...'):
             try:
                 response = openai.ChatCompletion.create(
-                    model="text-davinci-003",
+                    model="gpt-4o-mini",
                     messages=[
                         {"role": "system", "content": "You are a helpful assistant."},
                         {"role": "user", "content": prompt}
