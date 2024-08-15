@@ -9,7 +9,7 @@ client = OpenAI()
 st.set_page_config(layout="wide")
 
 # Header
-title = "myfitnessagent"
+title = "Glow"
 
 
 if (st.session_state.get("password_correct") == None) or (st.session_state.get("password_correct") == False):
