@@ -35,7 +35,7 @@ if st.button("Request nutrition options"):
         response = openai.ChatCompletion.create(
             model="gpt-4o-mini",
             messages=[
-                {"role": "system", "content": "You are a helpful assistant you have to work solely on user input specific to only what the user says."},
+                {"role": "system", "content": "You are a helpful assistant you have to work solely on user input specific to only what the user says. Do not incloud MOUD IN YOUR OUTPUT"},
                 {"role": "user", "content": prompt}
             ],
             max_tokens=150
