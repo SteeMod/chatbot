@@ -46,7 +46,7 @@ if submit_button:
         with st.spinner(f'Looking for {location} {event_type} in {time_frame}...'):
             try:
                 response = openai.Completion.create(
-                    engine="text-davinci-003",
+                    engine="gpt-4o-mini",
                     prompt=prompt,
                     max_tokens=150
                 )
