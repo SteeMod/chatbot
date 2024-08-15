@@ -26,14 +26,14 @@ if "event_response" not in st.session_state:
     st.session_state.event_response = ""
 
 # Set up the main app page
-st.subheader("Welcome to myfitnessagent - let me help you find your next local athletic event!")
-st.write("For example, I can help you find a 5k running event in New York City in August")
+st.subheader("Welcome to Buachat let me help you find the latest event ")
+st.write("For example, I can help you find a OUD event in Seattle")
 
 # Create a form for user input
 with st.form(key='event_form'):
     event_type = st.text_input("Type of event")
     location = st.text_input("Location")
-    time_frame = st.text_input("Month")
+    time_frame = st.text_input("Timeframe e.g Jan-Feb")
     submit_button = st.form_submit_button(label='Submit')
 
 if submit_button:
@@ -48,7 +48,7 @@ if submit_button:
                 response = openai.ChatCompletion.create(
                     model="gpt-4o-mini",
                     messages=[
-                        {"role": "system", "content": "You are a helpful assistant specially designed to find  events for that discuss Opiod Use Disorder based on  the user's {location} {event_type}, and {time_frame} after that give them the list based in this order, awareness, treatment and so on"},
+                        {"role": "system", "content": "You are a helpful assistant specially designed to find  events for that discuss Opiod Use Disorder/ Opiod misuse based on  the user's {location} {event_type}, and {time_frame} after that give them the list based in this order, awareness, treatment and so on"},
                         {"role": "user", "content": prompt}
                     ],
 
