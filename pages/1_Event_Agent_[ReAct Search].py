@@ -31,7 +31,7 @@ st.write("For example, I can help you find a OUD event in Seattle")
 
 # Create a form for user input
 with st.form(key='event_form'):
-    event_type = st.text_input("Type of event")
+    event_type = st.text_input("Type of event e.g In person/ virual")
     location = st.text_input("Location")
     time_frame = st.text_input("Timeframe e.g Jan-Feb")
     submit_button = st.form_submit_button(label='Submit')
