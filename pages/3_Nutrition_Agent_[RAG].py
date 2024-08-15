@@ -13,8 +13,8 @@ def check_api_key():
     openai.api_key = api_key
 
 def initialize_session_state():
-    if "moud_response" not in st.session_state:
-        st.session_state.moud_response = ""
+    if "nutrition_response" not in st.session_state:
+        st.session_state.nutrition_response = ""
 
 def check_login():
     if (st.session_state.get("password_correct") == None) or (st.session_state.get("password_correct") == False):
@@ -25,24 +25,24 @@ def display_header():
     st.subheader("Give your preferred treatment services, e.g medication treatment, Helplines, Behavioral Therapy")
 
 def get_user_input():
-    return st.text_input(label="moud_agent", label_visibility="hidden", placeholder="What are some MOUD support service programs?")
+    return st.text_input(label="nutrition_agent", label_visibility="hidden", placeholder="What are some Mediterranean breakfast options?")
 
-def request_moud_options(user_input):
+def request_nutrition_options(user_input):
     try:
         prompt = f"Provide me a list of some {user_input} MOUD support service programs"
         
         response = openai.ChatCompletion.create(
-            model="gpt-4o-mini",
+            model="gpt-4",
             messages=[
-                {"role": "system", "content": "You are a helpful assistant. You have to work solely on user input specific to only what the user says. Do not include unrelated information in your output. Include contacts and links in your output and only be very specific based on exact user output. For example, if a user asks for medication treatment, don't give therapy treatment."},
+                {"role": "system", "content": "You are a helpful assistant. You have to work solely on user input specific to only what the user says. Do not include MOUD in your output. Include contacts and links in your output and only be very specific based on exact user output. For example, if a user asks for medication treatment, don't give therapy treatment."},
                 {"role": "user", "content": prompt}
             ],
             max_tokens=150
         )
         
-        st.session_state.moud_response = response.choices[0]['message']['content'].strip()
+        st.session_state.nutrition_response = response.choices[0]['message']['content'].strip()
     except Exception as e:
-        st.session_state.moud_response = f"An error occurred: {e}"
+        st.session_state.nutrition_response = f"An error occurred: {e}"
 
 def main():
     set_page_config()
@@ -53,10 +53,10 @@ def main():
     
     user_input = get_user_input()
     
-    if st.button("Request MOUD options"):
-        request_moud_options(user_input)
+    if st.button("Request nutrition options"):
+        request_nutrition_options(user_input)
     
-    st.write(st.session_state.moud_response)
+    st.write(st.session_state.nutrition_response)
 
 if __name__ == "__main__":
     main()
