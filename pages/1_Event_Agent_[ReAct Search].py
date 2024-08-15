@@ -1,7 +1,6 @@
 import streamlit as st
 import openai
 import os
-from openai.error import InvalidRequestError, AuthenticationError, APIConnectionError, OpenAIError
 
 # Set page configuration
 st.set_page_config(layout="wide")
@@ -52,13 +51,13 @@ if submit_button:
                     max_tokens=150
                 )
                 st.session_state.event_response = response.choices[0].text.strip()
-            except InvalidRequestError as e:
+            except openai.error.InvalidRequestError as e:
                 st.error(f"Invalid request: {e}")
-            except AuthenticationError as e:
+            except openai.error.AuthenticationError as e:
                 st.error(f"Authentication error: {e}")
-            except APIConnectionError as e:
+            except openai.error.APIConnectionError as e:
                 st.error(f"API connection error: {e}")
-            except OpenAIError as e:
+            except openai.error.OpenAIError as e:
                 st.error(f"An error occurred: {e}")
 
 # Display output
