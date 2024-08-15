@@ -19,14 +19,14 @@ if not st.session_state.get("password_correct"):
 st.set_page_config(layout="wide")
 
 # Header
-st.title("myfitnessagent")
+st.title("Glow")
 
 # Initialize session state
 if "event_response" not in st.session_state:
     st.session_state.event_response = ""
 
 # Set up the main app page
-st.subheader("Welcome to Buachat let me help you find the latest event ")
+st.subheader("Welcome to Glow let me help you find the latest event ")
 st.write("For example, I can help you find a OUD event in Seattle")
 
 # Create a form for user input
