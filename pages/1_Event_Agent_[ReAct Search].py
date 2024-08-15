@@ -45,12 +45,15 @@ if submit_button:
         
         with st.spinner(f'Looking for {location} {event_type} in {time_frame}...'):
             try:
-                response = openai.Completion.create(
+                response = openai.ChatCompletion.create(
                     model="text-davinci-003",
-                    prompt=prompt,
+                    messages=[
+                        {"role": "system", "content": "You are a helpful assistant."},
+                        {"role": "user", "content": prompt}
+                    ],
                     max_tokens=150
                 )
-                st.session_state.event_response = response.choices[0].text.strip()
+                st.session_state.event_response = response.choices[0].message['content'].strip()
             except Exception as e:
                 st.error(f"An error occurred: {e}")
                 st.write(f"Debug info: {str(e)}")
