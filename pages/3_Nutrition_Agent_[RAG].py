@@ -24,13 +24,13 @@ if (st.session_state.get("password_correct") == None) or (st.session_state.get("
     st.write("Please login first.")
     st.stop()
 
-st.subheader("Let me help you find specific meal options based on your diet (e.g., Mediterranean, Keto, Vegan, etc.)!")
+st.subheader("Give your preffered treatment services, e.g medication treatment, Helplines, Behavioral Therapy")
 user_input = st.text_input(label="nutrition_agent", label_visibility="hidden", placeholder="What are some Mediterranean breakfast options?")
 
 # button to submit request
 if st.button("Request nutrition options"):
     try:
-        prompt = f"Provide some meal options for a {user_input} diet."
+        prompt = f"Provide me  a list of some  {user_input} MOUD support service programs  "
         
         response = openai.ChatCompletion.create(
             model="gpt-4o-mini",
