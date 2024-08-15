@@ -2,11 +2,7 @@ import streamlit as st
 import openai
 import os
 
-
-# Set page configuration
-st.set_page_config(layout="wide")
-
-# Initialize the OpenAI client with your API key from environment variables
+# Check for API key
 api_key = os.getenv("OPENAI_API_KEY")
 if not api_key:
     st.error("API key not found. Please set the OPENAI_API_KEY environment variable.")
@@ -14,17 +10,20 @@ if not api_key:
 
 openai.api_key = api_key
 
+# Check if the user is logged in
+if not st.session_state.get("password_correct"):
+    st.write("Please login first.")
+    st.stop()
+
+# Set page configuration
+st.set_page_config(layout="wide")
+
 # Header
 st.title("myfitnessagent")
 
 # Initialize session state
 if "event_response" not in st.session_state:
     st.session_state.event_response = ""
-
-# Check if the user is logged in
-if not st.session_state.get("password_correct"):
-    st.write("Please login first.")
-    st.stop()
 
 # Set up the main app page
 st.subheader("Welcome to myfitnessagent - let me help you find your next local athletic event!")
@@ -52,6 +51,8 @@ if submit_button:
                     max_tokens=150
                 )
                 st.session_state.event_response = response.choices[0].text.strip()
- 
+            except Exception as e:
+                st.error(f"An error occurred: {e}")
+
 # Display output
 st.write(st.session_state.event_response)
