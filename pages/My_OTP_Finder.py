@@ -77,7 +77,7 @@ if st.session_state.phase == 3:
         with st.spinner(f'Searching for MOUD programs in {location}...'):
             try:
                 response = openai.ChatCompletion.create(
-                    model="gpt-4",
+                    model="gpt-4o-mini",
                     messages=[
                         {"role": "system", "content": "You are a helpful assistant designed to find MOUD programs, health professionals, and community-based MOUD programs based on the user's location."},
                         {"role": "user", "content": prompt}
