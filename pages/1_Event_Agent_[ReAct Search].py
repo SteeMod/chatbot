@@ -1,6 +1,5 @@
 import streamlit as st
 import openai
-import requests
 import os
 
 # Set page configuration
@@ -17,11 +16,11 @@ openai.api_key = api_key
 # Header
 st.title("myfitnessagent")
 
+# Initialize session state
 if "event_response" not in st.session_state:
     st.session_state.event_response = ""
 
-col1, col2 = st.columns([1, 10])
-
+# Check if the user is logged in
 if not st.session_state.get("password_correct"):
     st.write("Please login first.")
     st.stop()
@@ -30,6 +29,7 @@ if not st.session_state.get("password_correct"):
 st.subheader("Welcome to myfitnessagent - let me help you find your next local athletic event!")
 st.write("For example, I can help you find a 5k running event in New York City in August")
 
+# Create a form for user input
 with st.form(key='event_form'):
     event_type = st.text_input("Type of event")
     location = st.text_input("Location")
@@ -59,6 +59,6 @@ if submit_button:
                 st.error(f"API connection error: {e}")
             except openai.error.OpenAIError as e:
                 st.error(f"An error occurred: {e}")
-    
+
 # Display output
 st.write(st.session_state.event_response)
