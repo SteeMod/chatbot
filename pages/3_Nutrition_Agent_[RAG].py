@@ -33,7 +33,7 @@ if st.button("Request nutrition options"):
         prompt = f"Provide some meal options for a {user_input} diet."
         
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", "content": prompt}
