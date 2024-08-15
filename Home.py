@@ -38,10 +38,10 @@ def check_password():
 
 
 # Header
-title = "myfitnessagent"
+title = "Glow"
 
 # Set up the main app page
-st.subheader("Welcome to myfitnessagent")
+st.subheader("Welcome to Glow")
 
 col1_auth, col2_auth = st.columns([1, 2])
 
@@ -61,10 +61,10 @@ if not check_password():
 st.write(f"You have been authenticated.")
 st.write("Select your agent from the sidebar to begin.")
 
-st.subheader("Agents available:")
-st.write("1. Onboarding Agent [ReAct]")
-st.write("2. Training Agent [CoT]")
-st.write("3. Nutrition Agent [RAG]")
+st.subheader("Tools available:")
+st.write("1. My Event Finder")
+st.write("2. My Service Finder")
+st.write("3. My OTP Finder")
 
 # Add a logout button
 if st.button('Logout'):
