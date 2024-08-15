@@ -46,13 +46,14 @@ if submit_button:
         with st.spinner(f'Looking for {location} {event_type} in {time_frame}...'):
             try:
                 response = openai.Completion.create(
-                    engine="gpt-4o-mini",
+                    engine="text-davinci-003",
                     prompt=prompt,
                     max_tokens=150
                 )
                 st.session_state.event_response = response.choices[0].text.strip()
             except Exception as e:
                 st.error(f"An error occurred: {e}")
+                st.write(f"Debug info: {str(e)}")
 
 # Display output
 st.write(st.session_state.event_response)
