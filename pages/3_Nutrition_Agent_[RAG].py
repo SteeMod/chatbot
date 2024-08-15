@@ -1,7 +1,16 @@
 import streamlit as st
-import requests
+import openai
+import os
 
 st.set_page_config(layout="wide")
+
+# Check for API key
+api_key = os.getenv("OPENAI_API_KEY")
+if not api_key:
+    st.error("API key not found. Please set the OPENAI_API_KEY environment variable.")
+    st.stop()
+
+openai.api_key = api_key
 
 # Header
 title = "myfitnessagent"
@@ -21,11 +30,19 @@ user_input = st.text_input(label="nutrition_agent", label_visibility="hidden", p
 # button to submit request
 if st.button("Request nutrition options"):
     try:
-        response = requests.post("https://localhost:8501", json={"query": user_input})
-        response.raise_for_status()  # Check if the request was successful
-        data = response.json()
-        st.session_state.nutrition_response = data.get("response", "No response found.")
-    except requests.exceptions.RequestException as e:
+        prompt = f"Provide some meal options for a {user_input} diet."
+        
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": prompt}
+            ],
+            max_tokens=150
+        )
+        
+        st.session_state.nutrition_response = response.choices[0].message['content'].strip()
+    except Exception as e:
         st.session_state.nutrition_response = f"An error occurred: {e}"
 
 st.write(st.session_state.nutrition_response)
