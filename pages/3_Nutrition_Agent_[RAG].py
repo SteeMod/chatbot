@@ -32,12 +32,12 @@ def request_nutrition_options(user_input):
         prompt = f"Provide me a list of some {user_input} OUD support service programs"
         
         response = openai.ChatCompletion.create(
-            model="gpt-4",
+            model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": "You are a helpful assistant. You have to work solely on user input specific to only what the user says. Do not include MOUD in your output. Include  contacts and links in your output, also take text from those sites and only be very specific based on exact user output. For example, if a user asks for medication treatment, don't give therapy treatment."},
                 {"role": "user", "content": prompt}
             ],
-            max_tokens=150
+            
         )
         
         st.session_state.nutrition_response = response.choices[0]['message']['content'].strip()
