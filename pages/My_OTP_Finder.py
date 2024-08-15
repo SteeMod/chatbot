@@ -43,8 +43,6 @@ if st.session_state.phase == 2:
     st.subheader("Phase 2: Detailed Questions")
     questions = [
         "Have you ever used opioids (prescription or non-prescription)?",
-        "How often do you use opioids?",
-        "When did you first start using opioids?",
         "Have you ever tried to cut down or stop using opioids but couldn’t?",
         "Do you spend a lot of time obtaining, using, or recovering from the effects of opioids?",
         "Have you continued to use opioids despite knowing it causes problems in your life?",
@@ -60,7 +58,7 @@ if st.session_state.phase == 2:
     ]
     
     for question in questions:
-        response = st.text_input(question)
+        response = st.radio(question, ["Yes", "No"])
         if response:
             st.session_state.responses[question] = response
     
