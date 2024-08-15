@@ -48,7 +48,7 @@ if submit_button:
                 response = openai.ChatCompletion.create(
                     model="gpt-4o-mini",
                     messages=[
-                        {"role": "system", "content": "You are a helpful assistant specially designed to find  events for that discuss Opiod Use Disorder/ Opiod misuse based on  the user's {location} {event_type}, and {time_frame} after that give them the list based in this order, awareness, treatment and so on"},
+                        {"role": "system", "content": "You are a helpful assistant specially designed to find  events for that discuss Opiod Use Disorder/ Opiod misuse based on  the user's {location} {event_type}, and {time_frame} after that give them the list based in this order, awareness, treatment and so on, also give the number, and email of the event."},
                         {"role": "user", "content": prompt}
                     ],
 
