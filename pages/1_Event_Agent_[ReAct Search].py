@@ -51,13 +51,13 @@ if submit_button:
                     max_tokens=150
                 )
                 st.session_state.event_response = response.choices[0].text.strip()
-            except openai.error.InvalidRequestError as e:
+            except openai.InvalidRequestError as e:
                 st.error(f"Invalid request: {e}")
-            except openai.error.AuthenticationError as e:
+            except openai.AuthenticationError as e:
                 st.error(f"Authentication error: {e}")
-            except openai.error.APIConnectionError as e:
+            except openai.APIConnectionError as e:
                 st.error(f"API connection error: {e}")
-            except openai.error.OpenAIError as e:
+            except openai.OpenAIError as e:
                 st.error(f"An error occurred: {e}")
 
 # Display output
