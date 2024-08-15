@@ -2,47 +2,61 @@ import streamlit as st
 import openai
 import os
 
-st.set_page_config(layout="wide")
+def set_page_config():
+    st.set_page_config(layout="wide")
 
-# Check for API key
-api_key = os.getenv("OPENAI_API_KEY")
-if not api_key:
-    st.error("API key not found. Please set the OPENAI_API_KEY environment variable.")
-    st.stop()
+def check_api_key():
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        st.error("API key not found. Please set the OPENAI_API_KEY environment variable.")
+        st.stop()
+    openai.api_key = api_key
 
-openai.api_key = api_key
+def initialize_session_state():
+    if "moud_response" not in st.session_state:
+        st.session_state.moud_response = ""
 
-# Header
-title = "myfitnessagent"
+def check_login():
+    if (st.session_state.get("password_correct") == None) or (st.session_state.get("password_correct") == False):
+        st.write("Please login first.")
+        st.stop()
 
-if "nutrition_response" not in st.session_state:
-    st.session_state.nutrition_response = ""
+def display_header():
+    st.subheader("Give your preferred treatment services, e.g medication treatment, Helplines, Behavioral Therapy")
 
-col1, col2 = st.columns([1, 10])
+def get_user_input():
+    return st.text_input(label="moud_agent", label_visibility="hidden", placeholder="What are some MOUD support service programs?")
 
-if (st.session_state.get("password_correct") == None) or (st.session_state.get("password_correct") == False):
-    st.write("Please login first.")
-    st.stop()
-
-st.subheader("Give your preffered treatment services, e.g medication treatment, Helplines, Behavioral Therapy")
-user_input = st.text_input(label="nutrition_agent", label_visibility="hidden", placeholder="What are some Mediterranean breakfast options?")
-
-# button to submit request
-if st.button("Request nutrition options"):
+def request_moud_options(user_input):
     try:
-        prompt = f"Provide me  a list of some  {user_input} MOUD support service programs  "
+        prompt = f"Provide me a list of some {user_input} MOUD support service programs"
         
         response = openai.ChatCompletion.create(
-            model="gpt-4o-mini",
+            model="gpt-4",
             messages=[
-                {"role": "system", "content": "You are a helpful assistant you have to work solely on user input specific to only what the user says. Do not incloud MOUD IN YOUR OUTPUT Include contacts and links in your out put and only be very specific based on exact user output e.g, a user asks for medication treatment dont give therapy treatment"},
+                {"role": "system", "content": "You are a helpful assistant. You have to work solely on user input specific to only what the user says. Do not include unrelated information in your output. Include contacts and links in your output and only be very specific based on exact user output. For example, if a user asks for medication treatment, don't give therapy treatment."},
                 {"role": "user", "content": prompt}
             ],
             max_tokens=150
         )
         
-        st.session_state.nutrition_response = response.choices[0].message['content'].strip()
+        st.session_state.moud_response = response.choices[0]['message']['content'].strip()
     except Exception as e:
-        st.session_state.nutrition_response = f"An error occurred: {e}"
+        st.session_state.moud_response = f"An error occurred: {e}"
 
-st.write(st.session_state.nutrition_response)
+def main():
+    set_page_config()
+    check_api_key()
+    initialize_session_state()
+    check_login()
+    display_header()
+    
+    user_input = get_user_input()
+    
+    if st.button("Request MOUD options"):
+        request_moud_options(user_input)
+    
+    st.write(st.session_state.moud_response)
+
+if __name__ == "__main__":
+    main()
