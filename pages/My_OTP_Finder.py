@@ -29,19 +29,19 @@ if "responses" not in st.session_state:
 
 # Phase 1: Location and MOUD Programs
 if st.session_state.phase == 1:
-    st.subheader("Phase 1: Finding MOUD Programs")
+    st.subheader("Phase 1: Finding Programs")
     location = st.text_input("Please provide your location (city and state):")
     
     if location:
         st.session_state.responses['location'] = location
-        prompt = f"Find MOUD programs, health professionals, and community-based MOUD programs in {location}."
+        prompt = f"Find MOUD programs, health professionals, and community-based OUD programs in {location}."
         
         with st.spinner(f'Searching for MOUD programs in {location}...'):
             try:
                 response = openai.ChatCompletion.create(
                     model="gpt-4o-mini",
                     messages=[
-                        {"role": "system", "content": "You are a helpful assistant designed to find MOUD programs, health professionals, and community-based MOUD programs based on the user's location."},
+                        {"role": "system", "content": "You are a helpful assistant designed to find OUD programs, health professionals, and community-based OUD programs based on the user's location."},
                         {"role": "user", "content": prompt}
                     ],
                 )
