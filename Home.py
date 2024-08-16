@@ -38,10 +38,10 @@ def check_password():
 
 
 # Header
-title = "Glow"
+title = "MyOFreeApp"
 
 # Set up the main app page
-st.subheader("Welcome to Glow")
+st.subheader("Welcome to MyOFreeApp")
 
 col1_auth, col2_auth = st.columns([1, 2])
 
