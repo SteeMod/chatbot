@@ -70,7 +70,7 @@ if st.session_state.phase == 2:
         
         try:
             response = openai.ChatCompletion.create(
-                model="gpt-4",
+                model="gpt-4o-mini",
                 messages=[
                     {"role": "system", "content": "You are a helpful assistant designed to determine if the user has Opioid Use Disorder (OUD) based on their responses."},
                     {"role": "user", "content": prompt}
