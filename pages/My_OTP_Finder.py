@@ -63,7 +63,29 @@ if st.session_state.phase == 2:
             st.session_state.responses[question] = response
     
     if st.button("Submit"):
-        st.session_state.phase = 3
+        # Process responses to determine if the user has OUD
+        prompt = "Based on the following responses, determine if the user has Opioid Use Disorder (OUD):\n"
+        for question, answer in st.session_state.responses.items():
+            prompt += f"{question}: {answer}\n"
+        
+        try:
+            response = openai.ChatCompletion.create(
+                model="gpt-4",
+                messages=[
+                    {"role": "system", "content": "You are a helpful assistant designed to determine if the user has Opioid Use Disorder (OUD) based on their responses."},
+                    {"role": "user", "content": prompt}
+                ],
+            )
+            diagnosis = response.choices[0].message['content'].strip()
+            st.session_state.responses['diagnosis'] = diagnosis
+            
+            if "OUD" in diagnosis or "not sure" in diagnosis:
+                st.session_state.phase = 3
+            else:
+                st.write("You are healthy. If you have any concerns, please consult a healthcare professional.")
+        except Exception as e:
+            st.error(f"An error occurred: {e}")
+            st.write(f"Debug info: {str(e)}")
 
 # Phase 3: Location and MOUD Programs
 if st.session_state.phase == 3:
@@ -77,7 +99,7 @@ if st.session_state.phase == 3:
         with st.spinner(f'Searching for MOUD programs in {location}...'):
             try:
                 response = openai.ChatCompletion.create(
-                    model="gpt-4o-mini",
+                    model="gpt-4",
                     messages=[
                         {"role": "system", "content": "You are a helpful assistant designed to find MOUD programs, health professionals, and community-based MOUD programs based on the user's location."},
                         {"role": "user", "content": prompt}
