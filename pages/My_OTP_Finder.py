@@ -83,6 +83,7 @@ if st.session_state.phase == 2:
                 st.session_state.phase = 3
             else:
                 st.write("You are healthy. If you have any concerns, please consult a healthcare professional.")
+                st.session_state.phase = 4
         except Exception as e:
             st.error(f"An error occurred: {e}")
             st.write(f"Debug info: {str(e)}")
@@ -99,7 +100,7 @@ if st.session_state.phase == 3:
         with st.spinner(f'Searching for MOUD programs in {location}...'):
             try:
                 response = openai.ChatCompletion.create(
-                    model="gpt-4",
+                    model="gpt-4o-mini",
                     messages=[
                         {"role": "system", "content": "You are a helpful assistant designed to find MOUD programs, health professionals, and community-based MOUD programs based on the user's location."},
                         {"role": "user", "content": prompt}
