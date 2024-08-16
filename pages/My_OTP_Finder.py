@@ -19,7 +19,7 @@ if not st.session_state.get("password_correct"):
 st.set_page_config(layout="wide")
 
 # Header
-st.title("Glow")
+st.title("MyOFreeApp")
 
 # Initialize session state
 if "phase" not in st.session_state:
