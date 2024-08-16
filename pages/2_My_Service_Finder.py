@@ -53,7 +53,7 @@ def main():
     
     user_input = get_user_input()
     
-    if st.button("Request Services"):
+    if st.button("Request nutrition options"):
         request_nutrition_options(user_input)
     
     st.write(st.session_state.nutrition_response)
