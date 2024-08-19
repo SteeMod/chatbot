@@ -1,13 +1,27 @@
 import streamlit as st
+import json
+import os
 
-# Title of the app
-st.title("Comment Section")
+# File to store comments and ratings
+COMMENTS_FILE = "comments.json"
+
+# Load comments and ratings from file
+def load_comments():
+    if os.path.exists(COMMENTS_FILE):
+        with open(COMMENTS_FILE, "r") as file:
+            return json.load(file)
+    return {"comments": [], "ratings": []}
+
+# Save comments and ratings to file
+def save_comments(comments, ratings):
+    with open(COMMENTS_FILE, "w") as file:
+        json.dump({"comments": comments, "ratings": ratings}, file)
 
 # Initialize session state for comments and ratings
 if "comments" not in st.session_state:
-    st.session_state["comments"] = []
-if "ratings" not in st.session_state:
-    st.session_state["ratings"] = []
+    data = load_comments()
+    st.session_state["comments"] = data["comments"]
+    st.session_state["ratings"] = data["ratings"]
 
 # Function to display comments and ratings
 def display_comments():
@@ -30,6 +44,7 @@ def add_comment():
             ratings.append(new_rating)
             st.session_state["comments"] = comments
             st.session_state["ratings"] = ratings
+            save_comments(comments, ratings)
             # Refresh the comments display
             display_comments()
 
