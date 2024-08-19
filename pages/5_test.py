@@ -1,7 +1,11 @@
 import streamlit as st
+import os
 
 # File to store comments and ratings
 COMMENTS_FILE = "/workspaces/chatbot/comments.txt"
+
+# Ensure the directory exists
+os.makedirs(os.path.dirname(COMMENTS_FILE), exist_ok=True)
 
 # Load comments and ratings from file
 def load_comments():
@@ -20,6 +24,9 @@ def load_comments():
 # Save comments and ratings to file
 def save_comments(comments, ratings):
     try:
+        # Create the file if it doesn't exist
+        with open(COMMENTS_FILE, "a") as file:
+            pass
         with open(COMMENTS_FILE, "w") as file:
             for comment, rating in zip(comments, ratings):
                 file.write(f"{comment}::{rating}\n")
