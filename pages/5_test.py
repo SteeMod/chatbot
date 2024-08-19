@@ -26,6 +26,6 @@ st.write("### Latest Comments")
 for comment in reversed(st.session_state.comments):
     st.write(f"Username: {comment['username']}")
     st.write(f"Comment: {comment['text']}")
-    st.write(f"Likes: {comment['likes']}")
-    st.write(f"Rating: {comment['rating']} stars")
+    st.write(f"Likes: {comment['likes']}")  # Allow users to like comments
+    st.write(f"Rating: {comment['rating']} stars")  # Allow users to provide star ratings
     st.write("---")
