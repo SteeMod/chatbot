@@ -2,7 +2,7 @@ import streamlit as st
 import json
 
 # File to store comments and ratings
-COMMENTS_FILE = "comments.json"
+COMMENTS_FILE = "/workspaces/chatbot/comments.json"
 
 # Load comments and ratings from file
 def load_comments():
