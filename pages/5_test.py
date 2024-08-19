@@ -1,21 +1,24 @@
 import streamlit as st
-import json
 
 # File to store comments and ratings
-COMMENTS_FILE = "/workspaces/chatbot/comments.json"
+COMMENTS_FILE = "/workspaces/chatbot/comments.txt"
 
 # Load comments and ratings from file
 def load_comments():
     try:
         with open(COMMENTS_FILE, "r") as file:
-            return json.load(file)
+            lines = file.readlines()
+            comments = [line.split("::")[0] for line in lines]
+            ratings = [int(line.split("::")[1]) for line in lines]
+            return {"comments": comments, "ratings": ratings}
     except FileNotFoundError:
         return {"comments": [], "ratings": []}
 
 # Save comments and ratings to file
 def save_comments(comments, ratings):
     with open(COMMENTS_FILE, "w") as file:
-        json.dump({"comments": comments, "ratings": ratings}, file)
+        for comment, rating in zip(comments, ratings):
+            file.write(f"{comment}::{rating}\n")
 
 # Initialize session state for comments and ratings
 if "comments" not in st.session_state:
