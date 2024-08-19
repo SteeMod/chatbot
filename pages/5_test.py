@@ -9,8 +9,13 @@ def load_comments():
     try:
         with open(COMMENTS_FILE, "r") as file:
             lines = file.readlines()
-            comments = [line.split("::")[0] for line in lines]
-            ratings = [int(line.split("::")[1]) for line in lines]
+            comments = []
+            ratings = []
+            for line in lines:
+                parts = line.split("::")
+                if len(parts) == 2:
+                    comments.append(parts[0])
+                    ratings.append(int(parts[1]))
             return {"comments": comments, "ratings": ratings}
     except FileNotFoundError:
         return {"comments": [], "ratings": []}
