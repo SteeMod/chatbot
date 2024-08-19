@@ -1,31 +1,32 @@
 import streamlit as st
 
-# Initialize session state to store comments
-if 'comments' not in st.session_state:
-    st.session_state['comments'] = []
+# Title of the app
+st.title("Comment Section")
+
+# Function to display comments
+@st.fragment
+def display_comments():
+    comments = st.session_state.get("comments", [])
+    for comment in comments:
+        st.write(comment)
 
 # Function to add a new comment
+@st.fragment
 def add_comment():
-    if st.session_state.new_comment:
-        st.session_state.comments.append({
-            'username': st.session_state.username,
-            'text': st.session_state.new_comment,
-            'likes': 0,
-            'rating': None
-        })
-        st.session_state.new_comment = ''
+    with st.form(key="comment_form"):
+        new_comment = st.text_area("Add your comment")
+        submit_button = st.form_submit_button(label="Submit")
+        if submit_button and new_comment:
+            comments = st.session_state.get("comments", [])
+            comments.append(new_comment)
+            st.session_state["comments"] = comments
+            st.experimental_rerun()
 
-# Input for new comment
-st.text_input("Add a comment:", key='new_comment', on_change=add_comment)
+# Display existing comments
+display_comments()
 
-# Input for username
-st.text_input("Enter your username:", key='username')
+# Add a new comment
+add_comment()
 
-# Display the latest comments
-st.write("### Latest Comments")
-for comment in reversed(st.session_state.comments):
-    st.write(f"Username: {comment['username']}")
-    st.write(f"Comment: {comment['text']}")
-    st.write(f"Likes: {comment['likes']}")  # Allow users to like comments
-    st.write(f"Rating: {comment['rating']} stars")  # Allow users to provide star ratings
-    st.write("---")
+# Collect feedback
+st.feedback("How do you like this comment section?")
