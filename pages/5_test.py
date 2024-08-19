@@ -29,4 +29,4 @@ display_comments()
 add_comment()
 
 # Collect feedback with appropriate options
-st.feedback("How do you like this comment section?", options="thumbs")
+st.feedback(options="thumbs")
