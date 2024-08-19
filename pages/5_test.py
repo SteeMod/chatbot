@@ -1,16 +1,16 @@
 import streamlit as st
 import json
-import os
 
 # File to store comments and ratings
 COMMENTS_FILE = "comments.json"
 
 # Load comments and ratings from file
 def load_comments():
-    if os.path.exists(COMMENTS_FILE):
+    try:
         with open(COMMENTS_FILE, "r") as file:
             return json.load(file)
-    return {"comments": [], "ratings": []}
+    except FileNotFoundError:
+        return {"comments": [], "ratings": []}
 
 # Save comments and ratings to file
 def save_comments(comments, ratings):
