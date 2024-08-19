@@ -28,5 +28,5 @@ display_comments()
 # Add a new comment
 add_comment()
 
-# Collect feedback
-st.feedback("How do you like this comment section?")
+# Collect feedback with appropriate options
+st.feedback("How do you like this comment section?", options="thumbs")
