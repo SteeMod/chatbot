@@ -13,12 +13,18 @@ def load_comments():
             return {"comments": comments, "ratings": ratings}
     except FileNotFoundError:
         return {"comments": [], "ratings": []}
+    except Exception as e:
+        st.error(f"Error loading comments: {e}")
+        return {"comments": [], "ratings": []}
 
 # Save comments and ratings to file
 def save_comments(comments, ratings):
-    with open(COMMENTS_FILE, "w") as file:
-        for comment, rating in zip(comments, ratings):
-            file.write(f"{comment}::{rating}\n")
+    try:
+        with open(COMMENTS_FILE, "w") as file:
+            for comment, rating in zip(comments, ratings):
+                file.write(f"{comment}::{rating}\n")
+    except Exception as e:
+        st.error(f"Error saving comments: {e}")
 
 # Initialize session state for comments and ratings
 if "comments" not in st.session_state:
