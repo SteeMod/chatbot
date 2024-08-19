@@ -22,7 +22,8 @@ def add_comment():
             comments = st.session_state.get("comments", [])
             comments.append(new_comment)
             st.session_state["comments"] = comments
-            st.experimental_rerun()
+            # Refresh the comments display
+            display_comments()
 
 # Display existing comments
 display_comments()
