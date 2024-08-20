@@ -1,6 +1,8 @@
 import os
 import streamlit as st
 from azure.storage.blob import BlobServiceClient
+from PIL import Image
+from io import BytesIO
 
 st.write("Welcome to MyOFreeApp, login to get started username= MyOFree, password=Imfree123, then you may proceed to other pages")
 
@@ -32,8 +34,10 @@ else:
         blob_client = blob_service_client.get_blob_client(container_name, blob_path)
         try:
             blob_data = blob_client.download_blob()
+            image = Image.open(BytesIO(blob_data.readall()))
+            image = image.resize((300, 300))  # Resize the image to 300x300 pixels
             with col:
-                st.image(blob_data.readall(), width=300)  # Adjust the width to make the images larger
+                st.image(image, width=300)  # Display the resized image
                 st.write(description)
         except Exception as e:
             st.error(f"Error downloading {blob_name}: {e}")
