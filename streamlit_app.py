@@ -1,10 +1,8 @@
-
 import os
 import streamlit as st
 from azure.storage.blob import BlobServiceClient
-st.write(" Welcome to MyOFreeApp, login to get started username= MyOFree, password=Imfree123, then you may proceed to other pages")
 
-
+st.write("Welcome to MyOFreeApp, login to get started username= MyOFree, password=Imfree123, then you may proceed to other pages")
 
 # Retrieve your Azure Blob Storage connection string from an environment variable
 connection_string = os.environ.get("AZURE_STORAGE_CONNECTION_STRING")
@@ -28,20 +26,14 @@ else:
     descriptions = ["Description for Image 1", "Description for Image 2", "Description for Image 3"]
 
     # Retrieve blobs and display images
-    for blob_name, description in zip(blob_names, descriptions):
+    cols = st.columns(len(blob_names))
+    for col, blob_name, description in zip(cols, blob_names, descriptions):
         blob_path = f"{folder_name}/{blob_name}"
         blob_client = blob_service_client.get_blob_client(container_name, blob_path)
         try:
             blob_data = blob_client.download_blob()
-            st.image(blob_data.readall(), width=200, caption=blob_name)
-            st.write(description)
+            with col:
+                st.image(blob_data.readall(), width=200, caption=blob_name)
+                st.write(description)
         except Exception as e:
             st.error(f"Error downloading {blob_name}: {e}")
-
-
-
-
-
-
-
-
