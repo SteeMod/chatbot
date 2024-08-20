@@ -33,7 +33,7 @@ else:
         try:
             blob_data = blob_client.download_blob()
             with col:
-                st.image(blob_data.readall(), width=200, caption=blob_name)
+                st.image(blob_data.readall(), width=300)  # Adjust the width to make the images larger
                 st.write(description)
         except Exception as e:
             st.error(f"Error downloading {blob_name}: {e}")
