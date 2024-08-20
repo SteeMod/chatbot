@@ -34,7 +34,7 @@ if st.session_state.phase == 1:
     
     if location:
         st.session_state.responses['location'] = location
-        prompt = f"Find MOUD programs, health professionals, and community-based OUD programs in {location}."
+        prompt = f"Find MOUD programs and fentanyl programs, health professionals, and community-based OUD programs in {location}."
         
         with st.spinner(f'Searching for MOUD programs in {location}...'):
             try:
