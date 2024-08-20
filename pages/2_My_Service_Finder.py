@@ -29,7 +29,7 @@ def get_user_input():
 
 def request_nutrition_options(user_input):
     try:
-        prompt = f"Provide me a list of some {user_input} OUD support service programs"
+        prompt = f"Provide me a list of some {user_input} opiod misuse and overdose support service programs"
         
         response = openai.ChatCompletion.create(
             model="gpt-4o-mini",
