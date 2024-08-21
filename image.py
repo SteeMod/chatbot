@@ -19,3 +19,5 @@ st.image(image2, caption=descriptions[1], width=300)  # Adjust the width as need
 st.image(image3, caption=descriptions[2], width=300)  # Adjust the width as needed
 
 
+#Praise GOD
+
