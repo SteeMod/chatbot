@@ -3,7 +3,7 @@ import hmac
 import streamlit as st
 
 st.set_page_config(layout="wide")
-st.subheader("Welcome to the homepage the username is myofree and the password is imfree123")
+
 
 def check_password():
     """Returns `True` if the user had a correct password."""
@@ -42,7 +42,7 @@ def check_password():
 title = "MyOFreeApp"
 
 # Set up the main app page
-st.subheader("Welcome to MyOFreeApp")
+st.subheader("Welcome to the homepage the username is myofree and the password is imfree123")
 
 col1_auth, col2_auth = st.columns([1, 2])
 
