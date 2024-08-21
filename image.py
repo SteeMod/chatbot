@@ -1,6 +1,5 @@
 
 
-
 import streamlit as st
 from PIL import Image
 
@@ -16,8 +15,8 @@ descriptions = [
     "Description 3"
 ]
 
-# Create columns for side-by-side display
-col1, col2, col3 = st.columns(3)
+# Create columns for side-by-side display with minimal padding
+col1, col2, col3 = st.columns([1, 1, 1])
 
 # Display images with descriptions in columns
 with col1:
