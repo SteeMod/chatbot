@@ -5,7 +5,7 @@ from azure.storage.blob import BlobServiceClient
 st.write("Welcome to MyOFreeApp, login to get started. Username: MyOFree, Password: Imfree123. Then you may proceed to other pages.")
 
 # Retrieve your Azure Blob Storage connection string from an environment variable
-connection_string = os.environ.get ["AZURE_STORAGE_CONNECTION_STRING"]
+connection_string = os.environ.get ("AZURE_STORAGE_CONNECTION_STRING")
 
 if not connection_string:
     st.error("Azure Storage connection string not found. Please set the environment variable and try again.")
