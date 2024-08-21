@@ -9,8 +9,8 @@ image3 = Image.open("/workspaces/chatbot/images/image3.png")
 # Descriptions of the images
 descriptions = [
     "Go to the MYOEvent Finder, this page helps you find in person or virtual events (treatment, awareness, Prevention and Support events) about opiod misuse and overdose",
-    "MyOSupport Service Finder lets you find support services (medication, bejavioral therapy or helplines) based on your preffered treatment service.",
-    ""
+    "MyOSupport Service Finder lets you find support services (medication, behavioral therapy or helplines) based on your preffered treatment service.",
+    "MyOTP Finder lets you find Opiod Treatment Programs, facilities and healthcare professionals based on your location."
 ]
 
 # Display images with descriptions
