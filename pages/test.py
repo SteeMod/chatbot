@@ -25,18 +25,18 @@ if len(image_files) >= 3:
         resized_images.append((resized_image, image_path))
     
     # Display images side by side with custom descriptions
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3 = st.columns([1, 1, 1])  # Adjust column width to make images larger
     descriptions = ["Description 1", "Description 2", "Description 3"]
     
     for idx, (image, image_path) in enumerate(resized_images):
         if idx == 0:
-            col1.image(image)
+            col1.image(image, use_column_width=True)  # Use column width to make the image larger
             col1.write(descriptions[idx])
         elif idx == 1:
-            col2.image(image)
+            col2.image(image, use_column_width=True)  # Use column width to make the image larger
             col2.write(descriptions[idx])
         elif idx == 2:
-            col3.image(image)
+            col3.image(image, use_column_width=True)  # Use column width to make the image larger
             col3.write(descriptions[idx])
 else:
     st.write("Not enough images in the directory.")
