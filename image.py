@@ -13,8 +13,8 @@ descriptions = [
     "Description 3"
 ]
 
-# Create columns
-col1, col2, col3 = st.columns(3)
+# Create columns with spacing
+col1, col2, col3 = st.columns([1, 1, 1], gap="large")
 
 # Display images with descriptions in columns
 with col1:
