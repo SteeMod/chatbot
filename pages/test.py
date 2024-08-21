@@ -30,13 +30,13 @@ if len(image_files) >= 3:
     
     for idx, (image, image_path) in enumerate(resized_images):
         if idx == 0:
-            col1.image(image, width=1200, height=900)  # Set width and height directly
+            col1.image(image, use_column_width=True)  # Use column width to make the image larger
             col1.write(descriptions[idx])
         elif idx == 1:
-            col2.image(image, width=1200, height=900)  # Set width and height directly
+            col2.image(image, use_column_width=True)  # Use column width to make the image larger
             col2.write(descriptions[idx])
         elif idx == 2:
-            col3.image(image, width=1200, height=900)  # Set width and height directly
+            col3.image(image, use_column_width=True)  # Use column width to make the image larger
             col3.write(descriptions[idx])
 else:
     st.write("Not enough images in the directory.")
