@@ -8,7 +8,7 @@ st.write("Welcome to MyOFreeApp, login to get started. Username: MyOFree, Passwo
 connection_string = os.environ.get("AZURE_STORAGE_CONNECTION_STRING")
 
 if not connection_string:
-    st.succes ("Azure Storage connection string not found. Please set the environment variable keep om trying you got this")
+    st.success ("Azure Storage connection string not found. Please set the environment variable keep om trying you got this")
 else:
     # Specify the container name
     container_name = "data1"
