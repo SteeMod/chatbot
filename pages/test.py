@@ -2,9 +2,9 @@ import streamlit as st
 from PIL import Image
 
 # Load images from local files
-image1 = Image.open("/workspaces/chatbot/images/image2.png")
-image2 = Image.open("/workspaces/chatbot/images/image.png")
-image3 = Image.open("/workspaces/chatbot/images/image3.png")
+image1 = Image.open("images/image2.png")
+image2 = Image.open("images/image.png")
+image3 = Image.open("images/image3.png")
 
 # Descriptions of the images
 descriptions = [
