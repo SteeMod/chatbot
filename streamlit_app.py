@@ -2,10 +2,10 @@ import os
 import streamlit as st
 from azure.storage.blob import BlobServiceClient
 
-st.write("Welcome to MyOFreeApp, login to get started. Username: MyOFree, Password: Imfree123. Then you may proceed to other pages.")
+st.write("Welcome to MyOFreeApp, login to get started.")
 
 # Retrieve your Azure Blob Storage connection string from an environment variable
-connection_string = os.environ.get ("AZURE_STORAGE_CONNECTION_STRING")
+connection_string = os.environ.get("AZURE_STORAGE_CONNECTION_STRING")
 
 if not connection_string:
     st.error("Azure Storage connection string not found. Please set the environment variable and try again.")
@@ -32,7 +32,7 @@ else:
         blob_client = blob_service_client.get_blob_client(container_name, blob_path)
         try:
             blob_data = blob_client.download_blob()
-            col.image(blob_data.readall(), width=200, caption=blob_name)
+            col.image(blob_data.readall(), width=200, caption=description)
             col.write(description)
         except Exception as e:
             col.error(f"Error downloading {blob_name}: {e}")
