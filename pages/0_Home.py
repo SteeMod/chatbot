@@ -3,6 +3,7 @@ import hmac
 import streamlit as st
 
 st.set_page_config(layout="wide")
+st.subheader("")
 
 def check_password():
     """Returns `True` if the user had a correct password."""
