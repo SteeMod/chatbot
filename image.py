@@ -1,3 +1,6 @@
+
+
+
 import streamlit as st
 from PIL import Image
 
@@ -13,7 +16,13 @@ descriptions = [
     "Description 3"
 ]
 
-# Display images with descriptions
-st.image(image1, caption=descriptions[0], width=300)  # Adjust the width as needed
-st.image(image2, caption=descriptions[1], width=300)  # Adjust the width as needed
-st.image(image3, caption=descriptions[2], width=300)  # Adjust the width as needed
+# Create columns for side-by-side display
+col1, col2, col3 = st.columns(3)
+
+# Display images with descriptions in columns
+with col1:
+    st.image(image1, caption=descriptions[0], use_column_width=True)
+with col2:
+    st.image(image2, caption=descriptions[1], use_column_width=True)
+with col3:
+    st.image(image3, caption=descriptions[2], use_column_width=True)
