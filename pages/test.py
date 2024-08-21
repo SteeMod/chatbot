@@ -21,7 +21,7 @@ if len(image_files) >= 3:
     for image_file in selected_images:
         image_path = os.path.join(image_directory, image_file)
         image = Image.open(image_path)
-        resized_image = image.resize((200, 300))  # Resize to 300x300 pixels
+        resized_image = image.resize((300, 450))  # Resize to 300x300 pixels
         resized_images.append((resized_image, image_path))
     
     # Display images side by side with custom descriptions
