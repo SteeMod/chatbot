@@ -25,7 +25,7 @@ if len(image_files) >= 3:
         resized_images.append((resized_image, image_path))
     
     # Display images side by side with custom descriptions
-    col1, col2, col3 = st.columns([2, 2, 2])  # Adjust column width to make images larger
+    col1, col2, col3 = st.columns([4, 4, 4])  # Adjust column width to make images larger
     descriptions = ["Description 1", "Description 2", "Description 3"]
     
     for idx, (image, image_path) in enumerate(resized_images):
