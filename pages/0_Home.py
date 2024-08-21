@@ -60,12 +60,12 @@ if not check_password():
 
 # User is already logged in, show the authenticated message
 st.write(f"You have been authenticated.")
-st.write("Select your agent from the sidebar to begin.")
+st.write("Select your Finder from the sidebar to begin.")
 
 st.subheader("Tools available:")
-st.write("1. My Event Finder")
-st.write("2. My Service Finder")
-st.write("3. My OTP Finder")
+st.write("1. MyOEvent Finder")
+st.write("2. MyOService Finder")
+st.write("3. MyOTP Finder")
 
 # Add a logout button
 if st.button('Logout'):
