@@ -16,7 +16,7 @@ with st.form(key='Comment'):
         try:
             # Use __file__ to determine the relative path
             script_dir = os.path.dirname(__file__)
-            file_path = os.path.join(script_dir, 'comments.txt')
+            file_path = os.path.join(script_dir, '/workspaces/chatbot/comments/comments.txt')
             
             with open(file_path, 'a') as f:
                 f.write(text_input + '\n')
