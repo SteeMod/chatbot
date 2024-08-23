@@ -14,7 +14,7 @@ with st.form(key='Comment'):
     if submit_button:
         try:
             # Use an absolute path to ensure the file is found
-            with open('/absolute/path/to/comments.txt', 'a') as f:
+            with open('/workspaces/chatbot/comments.txt', 'a') as f:
                 f.write(text_input + '\n')
             st.success("Comment saved successfully!")
         except Exception as e:
