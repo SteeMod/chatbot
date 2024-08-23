@@ -27,7 +27,7 @@ if "event_response" not in st.session_state:
 
 # Set up the main app page
 st.subheader("Welcome to MyOFreeApp let me help you find the  latest  Opiod related event ")
-st.write("For example, I can help you find a OUD event in Seattle, from September to December")
+st.write("For example, I can help you find a OUD event in Seattle, in the timeframe of September to December in 2024")
 
 # Create a form for user input
 with st.form(key='event_form'):
