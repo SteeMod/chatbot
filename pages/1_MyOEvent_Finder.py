@@ -27,13 +27,13 @@ if "event_response" not in st.session_state:
 
 # Set up the main app page
 st.subheader("Welcome to MyOFreeApp let me help you find the  latest  Opiod related event ")
-st.write("For example, I can help you find a OUD event in Seattle, in September")
+st.write("For example, I can help you find a OUD event in Seattle, in September in 2025")
 
 # Create a form for user input
 with st.form(key='event_form'):
     event_type = st.text_input("Type of event e.g In person/ virtual")
     location = st.text_input("Location, if virtual put country name.")
-    time_frame = st.text_input("Timeframe e.g Jan-Feb")
+    time_frame = st.text_input("Timeframe e.g Jan-Feb put in year")
     submit_button = st.form_submit_button(label='Submit')
 
 if submit_button:
