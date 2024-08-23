@@ -33,7 +33,7 @@ st.write("For example, I can help you find a OUD event in Seattle, in September 
 with st.form(key='event_form'):
     event_type = st.text_input("Type of event e.g In person/ virtual")
     location = st.text_input("Location, if virtual put country name.")
-    time_frame = st.text_input("Timeframe e.g Jan-Feb put in year")
+    time_frame = st.text_input("Timeframe e.g Jan-Feb, put in year")
     submit_button = st.form_submit_button(label='Submit')
 
 if submit_button:
