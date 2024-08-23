@@ -1,4 +1,9 @@
 import streamlit as st
+import os
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger()
 
 # Create a form with a text area in Streamlit
 with st.form(key='Comment'):
@@ -13,10 +18,16 @@ with st.form(key='Comment'):
     # If the form is submitted, write the comment to a file
     if submit_button:
         try:
-            # Use an absolute path to ensure the file is found
-            with open('comments/comments.txt', 'a') as f:
+            # Use __file__ to determine the relative path
+            script_dir = os.path.dirname(__file__)
+            file_path = os.path.join(script_dir, 'comments.txt')
+            logger.debug(f"File path: {file_path}")
+            st.write(f"File path: {file_path}")
+            
+            with open(file_path, 'a') as f:
                 f.write(text_input + '\n')
             st.success("Comment saved successfully!")
         except Exception as e:
             st.error(f"An error occurred: {e}")
             st.error(f"Error details: {str(e)}")
+            logger.error(f"Error details: {str(e)}")
