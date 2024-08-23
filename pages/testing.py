@@ -1,4 +1,5 @@
 import streamlit as st
+import os
 
 # Create a form with a text area in Streamlit
 with st.form(key='Comment'):
@@ -13,8 +14,11 @@ with st.form(key='Comment'):
     # If the form is submitted, write the comment to a file
     if submit_button:
         try:
-            # Use an absolute path to ensure the file is found
-            with open('comments.txt', 'a') as f:
+            # Use __file__ to determine the relative path
+            script_dir = os.path.dirname(__file__)
+            file_path = os.path.join(script_dir, 'comments.txt')
+            
+            with open(file_path, 'a') as f:
                 f.write(text_input + '\n')
             st.success("Comment saved successfully!")
         except Exception as e:
