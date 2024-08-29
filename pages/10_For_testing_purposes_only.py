@@ -1,5 +1,6 @@
 import streamlit as st
 from streamlit_star_rating import st_star_rating
+import os
 
 # Title of the app
 st.title("Review App")
@@ -17,10 +18,13 @@ rating = st_star_rating("Rate the app", maxValue=5, defaultValue=3, key="rating"
 if "reviews" not in st.session_state:
     st.session_state.reviews = []
 
+# Define the full path to the reviews.txt file
+file_path = os.path.join(os.getcwd(), "reviews.txt")
+
 # Function to save reviews to a text file
 def save_reviews(reviews):
     try:
-        with open("reviews.txt", "w") as f:
+        with open(file_path, "w") as f:
             for review in reviews:
                 f.write(f"Name: {review['name']}\n")
                 f.write(f"Review: {review['review']}\n")
@@ -34,7 +38,7 @@ def save_reviews(reviews):
 def load_reviews():
     reviews = []
     try:
-        with open("/workspaces/chatbot/reviews.txt", "r") as f:
+        with open(file_path, "r") as f:
             lines = f.readlines()
             for i in range(0, len(lines), 4):
                 name = lines[i].strip().split(": ")[1]
