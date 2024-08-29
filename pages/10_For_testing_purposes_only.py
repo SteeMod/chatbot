@@ -19,7 +19,7 @@ if "reviews" not in st.session_state:
     st.session_state.reviews = []
 
 # Define the full path to the reviews.txt file
-file_path = os.path.join(os.getcwd(), "/workspaces/chatbot/reviews.txt")
+file_path = os.path.join(os.getcwd(), "reviews.txt")
 
 # Function to save reviews to a text file
 def save_reviews(reviews):
