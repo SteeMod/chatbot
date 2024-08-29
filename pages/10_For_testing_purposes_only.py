@@ -29,8 +29,3 @@ if st.button("Submit"):
 st.write("### Reviews")
 for r in st.session_state.reviews:
     st.write(f"**{r['name']}**: {r['review']} (Rating: {r['rating']} stars)")
-
-# Display a list of reviews (for demonstration purposes, this is static)
-st.write("### Reviews")
-st.write("**Alice**: Great app!")
-st.write("**Bob**: Very useful.")
