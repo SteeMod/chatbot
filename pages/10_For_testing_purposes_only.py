@@ -19,12 +19,16 @@ if "reviews" not in st.session_state:
 
 # Function to save reviews to a text file
 def save_reviews(reviews):
-    with open("reviews.txt", "w") as f:
-        for review in reviews:
-            f.write(f"Name: {review['name']}\n")
-            f.write(f"Review: {review['review']}\n")
-            f.write(f"Rating: {review['rating']} stars\n")
-            f.write("\n")
+    try:
+        with open("reviews.txt", "w") as f:
+            for review in reviews:
+                f.write(f"Name: {review['name']}\n")
+                f.write(f"Review: {review['review']}\n")
+                f.write(f"Rating: {review['rating']} stars\n")
+                f.write("\n")
+        st.success("Reviews saved successfully!")
+    except Exception as e:
+        st.error(f"Error saving reviews: {e}")
 
 # Function to load reviews from a text file
 def load_reviews():
@@ -39,6 +43,8 @@ def load_reviews():
                 reviews.append({"name": name, "review": review, "rating": rating})
     except FileNotFoundError:
         pass
+    except Exception as e:
+        st.error(f"Error loading reviews: {e}")
     return reviews
 
 # Load reviews from file on startup
@@ -49,7 +55,6 @@ if st.button("Submit"):
     if name and review:
         st.session_state.reviews.append({"name": name, "review": review, "rating": rating})
         save_reviews(st.session_state.reviews)
-        st.success("Thank you for your review!")
     else:
         st.error("Please enter both your name and review.")
 
