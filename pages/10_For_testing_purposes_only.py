@@ -34,7 +34,7 @@ def save_reviews(reviews):
 def load_reviews():
     reviews = []
     try:
-        with open("reviews.txt", "r") as f:
+        with open("/workspaces/chatbot/reviews.txt", "r") as f:
             lines = f.readlines()
             for i in range(0, len(lines), 4):
                 name = lines[i].strip().split(": ")[1]
