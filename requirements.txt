@@ -1,4 +1,5 @@
 streamlit
- openai==0.28
- streamlit-feedback
+openai==0.28
+streamlit-feedback
 azure-storage-blob
+st-star-rating
