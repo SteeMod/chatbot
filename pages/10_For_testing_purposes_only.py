@@ -1,7 +1,8 @@
 import streamlit as st
 from streamlit_star_rating import st_star_rating
-from azure.storage.blob import BlobServiceClient
+from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
 import json
+import os
 
 # Title of the app
 st.title("Review App")
@@ -19,9 +20,9 @@ rating = st_star_rating("Rate the app", maxValue=5, defaultValue=3, key="rating"
 if "reviews" not in st.session_state:
     st.session_state.reviews = []
 
-# Azure Blob Storage setup
-connection_string = "your_connection_string_here"
-container_name = "your_container_name_here"
+# Azure Blob Storage setup using environment variables
+connection_string = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
+container_name = os.getenv("AZURE_STORAGE_CONTAINER_NAME")
 blob_name = "reviews.json"
 
 blob_service_client = BlobServiceClient.from_connection_string(connection_string)
