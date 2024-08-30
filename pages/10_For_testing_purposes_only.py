@@ -55,7 +55,9 @@ def load_reviews():
     return reviews
 
 # Load reviews from file on startup
-st.session_state.reviews = load_reviews()
+if "reviews_loaded" not in st.session_state:
+    st.session_state.reviews = load_reviews()
+    st.session_state.reviews_loaded = True
 
 # Button to submit the review
 if st.button("Submit"):
