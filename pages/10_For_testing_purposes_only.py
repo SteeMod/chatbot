@@ -20,6 +20,7 @@ if "reviews" not in st.session_state:
 
 # Define the full path to the reviews.txt file
 file_path = os.path.join(os.getcwd(), "reviews.txt")
+st.write(f"File path: {file_path}")  # Debug statement
 
 # Function to save reviews to a text file
 def save_reviews(reviews):
@@ -33,6 +34,7 @@ def save_reviews(reviews):
         st.success("Reviews saved successfully!")
     except Exception as e:
         st.error(f"Error saving reviews: {e}")
+        st.write(f"Exception: {e}")  # Debug statement
 
 # Function to load reviews from a text file
 def load_reviews():
@@ -49,6 +51,7 @@ def load_reviews():
         pass
     except Exception as e:
         st.error(f"Error loading reviews: {e}")
+        st.write(f"Exception: {e}")  # Debug statement
     return reviews
 
 # Load reviews from file on startup
