@@ -22,7 +22,7 @@ if "reviews" not in st.session_state:
 
 # Azure Blob Storage setup
 connection_string = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
-container_name = "your_container_name_here"
+container_name = "data1"
 blob_name = "reviews.json"
 
 if not connection_string:
