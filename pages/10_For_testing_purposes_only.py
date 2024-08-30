@@ -1,70 +1,41 @@
-import os
 import streamlit as st
-from streamlit_star_rating import st_star_rating
-from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
-import json
+from azure.storage.blob import BlobServiceClient
 
-# Title of the app
-st.title("Review App")
+# Hardcoded Azure blob storage connection string
+connection_string = "DefaultEndpointsProtocol=https;AccountName=devcareall;AccountKey=GEW0V0frElMx6YmZyObMDqJWDj3pG0FzJCTkCaknW/JMH9UqHqNzeFhF/WWCUKeIj3LNN5pb/hl9+AStHMGKFA==;EndpointSuffix=core.windows.net"
 
-# Input for user to enter their name
-name = st.text_input("Enter your name")
+container_name = "data1/Misc"
+blob_name = "comments.txt"
 
-# Input for user to enter their review
-review = st.text_area("Enter your review")
+# Create a form with a text area in Streamlit
+with st.form(key='Comment'):
+    text_input = st.text_area(label='Enter your comment', value='', placeholder='Include who the message is from and give detailed comments.', max_chars=500)
+    submit_button = st.form_submit_button(label='Submit')
 
-# Star rating input
-rating = st_star_rating("Rate the app", maxValue=5, defaultValue=3, key="rating")
+    # If the form is submitted, write the comment to a file and upload it to Azure Blob Storage
+    if submit_button:
+        with open('comments.txt', 'a') as f:
+            f.write(text_input + '\n')
 
-# Initialize session state to store reviews
-if "reviews" not in st.session_state:
-    st.session_state.reviews = []
+        # Create a blob client using the local file name as the name for the blob
+        blob_service_client = BlobServiceClient.from_connection_string(connection_string)
+        blob_client = blob_service_client.get_blob_client(container=container_name, blob=blob_name)
 
-# Azure Blob Storage setup
-connection_string = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
-container_name = "data1"
-blob_name = "reviews.json"
+        # Upload the created file, overwriting if it already exists
+        try:
+            with open('comments.txt', 'rb') as data:
+                blob_client.upload_blob(data, overwrite=True)
+            st.success("Comment uploaded successfully!")
+        except Exception as e:
+            st.error(f"An error occurred: {e}")
 
-if not connection_string:
-    st.error("Azure Storage connection string is not set.")
-else:
+# Display the contents of comments.txt from Azure Blob Storage
+try:
     blob_service_client = BlobServiceClient.from_connection_string(connection_string)
-    container_client = blob_service_client.get_container_client(container_name)
-
-    # Function to save reviews to Azure Blob Storage
-    def save_reviews(reviews):
-        try:
-            blob_client = container_client.get_blob_client(blob_name)
-            blob_client.upload_blob(json.dumps(reviews), overwrite=True)
-            st.success("Reviews saved successfully!")
-        except Exception as e:
-            st.error(f"Error saving reviews: {e}")
-
-    # Function to load reviews from Azure Blob Storage
-    def load_reviews():
-        reviews = []
-        try:
-            blob_client = container_client.get_blob_client(blob_name)
-            blob_data = blob_client.download_blob().readall()
-            reviews = json.loads(blob_data)
-        except Exception as e:
-            st.error(f"Error loading reviews: {e}")
-        return reviews
-
-    # Load reviews from Azure Blob Storage on startup
-    if "reviews_loaded" not in st.session_state:
-        st.session_state.reviews = load_reviews()
-        st.session_state.reviews_loaded = True
-
-    # Button to submit the review
-    if st.button("Submit"):
-        if name and review:
-            st.session_state.reviews.append({"name": name, "review": review, "rating": rating})
-            save_reviews(st.session_state.reviews)
-        else:
-            st.error("Please enter both your name and review.")
-
-    # Display the list of reviews
-    st.write("### Reviews")
-    for r in st.session_state.reviews:
-        st.write(f"**{r['name']}**: {r['review']} (Rating: {r['rating']} stars)")
+    blob_client = blob_service_client.get_blob_client(container=container_name, blob=blob_name)
+    blob_data = blob_client.download_blob().readall()
+    comments = blob_data.decode('utf-8')
+    st.write("Contents of comments.txt from Azure Blob Storage:")
+    st.text(comments)
+except Exception as e:
+    st.error(f"An error occurred while retrieving the comments: {e}")
