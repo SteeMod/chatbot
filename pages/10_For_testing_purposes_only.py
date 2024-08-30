@@ -1,6 +1,7 @@
 import streamlit as st
 from streamlit_star_rating import st_star_rating
-import os
+from azure.storage.blob import BlobServiceClient
+import json
 
 # Title of the app
 st.title("Review App")
@@ -18,40 +19,35 @@ rating = st_star_rating("Rate the app", maxValue=5, defaultValue=3, key="rating"
 if "reviews" not in st.session_state:
     st.session_state.reviews = []
 
-# Define the full path to the reviews.txt file
-file_path = os.path.join(os.getcwd(), "reviews.txt")
+# Azure Blob Storage setup
+connection_string = "your_connection_string_here"
+container_name = "your_container_name_here"
+blob_name = "reviews.json"
 
-# Function to save reviews to a text file
+blob_service_client = BlobServiceClient.from_connection_string(connection_string)
+container_client = blob_service_client.get_container_client(container_name)
+
+# Function to save reviews to Azure Blob Storage
 def save_reviews(reviews):
     try:
-        with open(file_path, "w") as f:
-            for review in reviews:
-                f.write(f"Name: {review['name']}\n")
-                f.write(f"Review: {review['review']}\n")
-                f.write(f"Rating: {review['rating']} stars\n")
-                f.write("\n")
+        blob_client = container_client.get_blob_client(blob_name)
+        blob_client.upload_blob(json.dumps(reviews), overwrite=True)
         st.success("Reviews saved successfully!")
     except Exception as e:
         st.error(f"Error saving reviews: {e}")
 
-# Function to load reviews from a text file
+# Function to load reviews from Azure Blob Storage
 def load_reviews():
     reviews = []
     try:
-        with open(file_path, "r") as f:
-            lines = f.readlines()
-            for i in range(0, len(lines), 4):
-                name = lines[i].strip().split(": ")[1]
-                review = lines[i+1].strip().split(": ")[1]
-                rating = int(lines[i+2].strip().split(": ")[1].split()[0])
-                reviews.append({"name": name, "review": review, "rating": rating})
-    except FileNotFoundError:
-        pass
+        blob_client = container_client.get_blob_client(blob_name)
+        blob_data = blob_client.download_blob().readall()
+        reviews = json.loads(blob_data)
     except Exception as e:
         st.error(f"Error loading reviews: {e}")
     return reviews
 
-# Load reviews from file on startup
+# Load reviews from Azure Blob Storage on startup
 if "reviews_loaded" not in st.session_state:
     st.session_state.reviews = load_reviews()
     st.session_state.reviews_loaded = True
