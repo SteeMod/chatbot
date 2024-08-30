@@ -1,11 +1,13 @@
 import streamlit as st
 from azure.storage.blob import BlobServiceClient
+import os
 
-# Hardcoded Azure blob storage connection string
-connection_string = "DefaultEndpointsProtocol=https;AccountName=devcareall;AccountKey=GEW0V0frElMx6YmZyObMDqJWDj3pG0FzJCTkCaknW/JMH9UqHqNzeFhF/WWCUKeIj3LNN5pb/hl9+AStHMGKFA==;EndpointSuffix=core.windows.net"
+# Load the connection string from an environment variable
+connection_string = os.getenv('AZURE_STORAGE_CONNECTION_STRING')
 
 container_name = "data1/Misc"
 blob_name = "comments.txt"
+local_file_path = 'comments.txt'
 
 # Create a form with a text area in Streamlit
 with st.form(key='Comment'):
@@ -14,7 +16,7 @@ with st.form(key='Comment'):
 
     # If the form is submitted, write the comment to a file and upload it to Azure Blob Storage
     if submit_button:
-        with open('comments.txt', 'a') as f:
+        with open(local_file_path, 'a') as f:
             f.write(text_input + '\n')
 
         # Create a blob client using the local file name as the name for the blob
@@ -23,7 +25,7 @@ with st.form(key='Comment'):
 
         # Upload the created file, overwriting if it already exists
         try:
-            with open('comments.txt', 'rb') as data:
+            with open(local_file_path, 'rb') as data:
                 blob_client.upload_blob(data, overwrite=True)
             st.success("Comment uploaded successfully!")
         except Exception as e:
