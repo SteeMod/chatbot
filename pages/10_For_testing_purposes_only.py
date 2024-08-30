@@ -20,13 +20,13 @@ rating = st_star_rating("Rate the app", maxValue=5, defaultValue=3, key="rating"
 if "reviews" not in st.session_state:
     st.session_state.reviews = []
 
-# Azure Blob Storage setup using environment variables
+# Azure Blob Storage setup
 connection_string = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
-container_name = os.getenv("AZURE_STORAGE_CONTAINER_NAME")
+container_name = "your_container_name_here"
 blob_name = "reviews.json"
 
-if not connection_string or not container_name:
-    st.error("Azure Storage connection string or container name is not set.")
+if not connection_string:
+    st.error("Azure Storage connection string is not set.")
 else:
     blob_service_client = BlobServiceClient.from_connection_string(connection_string)
     container_client = blob_service_client.get_container_client(container_name)
