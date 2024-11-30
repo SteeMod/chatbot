@@ -2,6 +2,11 @@ import streamlit as st
 import pandas as pd
 import os
 
+# Function to get the absolute path
+def get_absolute_path(relative_path):
+    base_path = os.path.abspath(os.path.dirname(__file__))
+    return os.path.join(base_path, relative_path)
+
 # Load comments from CSV file
 def load_comments(file):
     try:
@@ -30,8 +35,8 @@ def add_comment(file, name, comment):
 # Main application
 st.title("Comments Section")
 
-# Use the relative path to the CSV file in the streamlit directory
-file_path = 'streamlit/comments.csv'
+# File path for the CSV file
+file_path = get_absolute_path('comments.csv')
 
 # Ensure the directory exists
 os.makedirs(os.path.dirname(file_path), exist_ok=True)
