@@ -30,12 +30,12 @@ def add_comment(file, name, comment):
 # Main application
 st.title("Comments Section")
 
-# Hardcoded path for the CSV file in the /streamlit/ directory
-file_path = '/streamlit/comments.csv'
+# Correct path for the CSV file based on your file system
+file_path = 'comments.csv'
 
 # Check if the file exists and create if it does not
 if not os.path.isfile(file_path):
-    st.error(f"The file {file_path} does not exist. Please ensure the path is correct.")
+    st.error(f"The file {file_path} does not exist. Please ensure the path is correct and the file is created.")
 
 # Load and display existing comments
 comments = load_comments(file_path)
