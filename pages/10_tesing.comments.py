@@ -46,7 +46,7 @@ def add_comment(file, name, comment):
 # Main application
 st.title("Comments Section")
 
-# Use the absolute path to the CSV file
+# Specify the path to the CSV file
 file_path = get_absolute_path('comments.csv')
 
 # Ensure the directory exists
