@@ -1,6 +1,6 @@
 # Streamlit AI Agents Application
 
-This Streamlit application serves as an interface for interacting with three distinct AI agents, each designed to perform specific tasks. The application is structured with a main entry point (Home.py) and additional pages for each agent, facilitating user interaction and showcasing the capabilities of each AI model. The streamlit application also uses a fastapi backend for a agent #1 (ReAct) and agent #3 (RAG) endpoints.   
+This Streamlit application serves as an interface for interacting with three distinct AI agents, each designed to perform specific tasks. The application is structured with a main entry point  and additional pages for each agent, facilitating user interaction and showcasing the capabilities of each AI model  
 
 ## Installation
 
