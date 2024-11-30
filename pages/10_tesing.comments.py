@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import os
 
 # Load comments from CSV file
 def load_comments(file):
@@ -30,14 +29,10 @@ def add_comment(file, name, comment):
 # Main application
 st.title("Comments Section")
 
-# File path for the CSV file in the /streamlit/ directory
-file_path = os.path.join('/streamlit/', 'comments.csv')
+# File path for the CSV file
+file = 'comments.csv'
 
-# Check if the file exists
-if not os.path.isfile(file_path):
-    save_comments(file_path, pd.DataFrame(columns=['name', 'comment']))
-
-comments = load_comments(file_path)
+comments = load_comments(file)
 display_comments(comments)
 
 # Input fields for new comment
@@ -48,10 +43,11 @@ comment = st.text_area("Comment")
 # Button to submit new comment
 if st.button("Submit"):
     if name and comment:
-        add_comment(file_path, name, comment)
+        add_comment(file, name, comment)
         st.success("Comment added successfully!")
-        # Reload comments to display the new ones
-        comments = load_comments(file_path)
-        display_comments(comments)
     else:
         st.error("Please fill in both fields.")
+
+# Reload comments to display the new ones
+comments = load_comments(file)
+display_comments(comments)
