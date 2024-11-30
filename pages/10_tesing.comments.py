@@ -31,7 +31,7 @@ def add_comment(file, name, comment):
 st.title("Comments Section")
 
 # File path for the CSV file in the /streamlit/ directory
-file_path = os.path.join('/streamlit', 'comments.csv')
+file_path = os.path.join('/streamlit/', 'comments.csv')
 
 # Check if the file exists
 if not os.path.isfile(file_path):
