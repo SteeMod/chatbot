@@ -22,8 +22,11 @@ def save_comments(file, comments):
 # Display comments on the webpage
 def display_comments(comments):
     st.write("### Comments")
-    for index, row in comments.iterrows():
-        st.write(f"**{row['name']}**: {row['comment']}")
+    if comments.empty:
+        st.write("No comments yet. Be the first to add one!")
+    else:
+        for index, row in comments.iterrows():
+            st.write(f"**{row['name']}**: {row['comment']}")
 
 # Add new comment to the CSV file
 def add_comment(file, name, comment):
@@ -35,7 +38,7 @@ def add_comment(file, name, comment):
 # Main application
 st.title("Comments Section")
 
-# File path for the CSV file
+# Use the absolute path to the CSV file
 file_path = get_absolute_path('comments.csv')
 
 # Ensure the directory exists
@@ -45,6 +48,7 @@ os.makedirs(os.path.dirname(file_path), exist_ok=True)
 if not os.path.isfile(file_path):
     save_comments(file_path, pd.DataFrame(columns=['name', 'comment']))
 
+# Load and display existing comments
 comments = load_comments(file_path)
 display_comments(comments)
 
