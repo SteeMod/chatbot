@@ -11,13 +11,21 @@ def get_absolute_path(relative_path):
 def load_comments(file):
     try:
         comments = pd.read_csv(file)
+        st.write(f"Loaded comments from {file}")
     except FileNotFoundError:
+        st.write(f"File {file} not found. Initializing empty DataFrame.")
         comments = pd.DataFrame(columns=['name', 'comment'])
+    except Exception as e:
+        st.error(f"Error loading file {file}: {e}")
     return comments
 
 # Save comments to CSV file
 def save_comments(file, comments):
-    comments.to_csv(file, index=False)
+    try:
+        comments.to_csv(file, index=False)
+        st.write(f"Successfully saved to {file}")
+    except Exception as e:
+        st.error(f"Error saving to file {file}: {e}")
 
 # Display comments on the webpage
 def display_comments(comments):
