@@ -35,7 +35,7 @@ file_path = '/streamlit/comments.csv'
 
 # Check if the file exists and create if it does not
 if not os.path.isfile(file_path):
-    save_comments(file_path, pd.DataFrame(columns=['name', 'comment']))
+    st.error(f"The file {file_path} does not exist. Please ensure the path is correct.")
 
 # Load and display existing comments
 comments = load_comments(file_path)
