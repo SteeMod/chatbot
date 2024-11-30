@@ -2,39 +2,23 @@ import streamlit as st
 import pandas as pd
 import os
 
-# Function to get the absolute path
-def get_absolute_path(relative_path):
-    base_path = os.path.abspath(os.path.dirname(__file__))
-    return os.path.join(base_path, relative_path)
-
 # Load comments from CSV file
 def load_comments(file):
     try:
         comments = pd.read_csv(file)
-        st.write(f"Loaded comments from {file}")
     except FileNotFoundError:
-        st.write(f"File {file} not found. Initializing empty DataFrame.")
         comments = pd.DataFrame(columns=['name', 'comment'])
-    except Exception as e:
-        st.error(f"Error loading file {file}: {e}")
     return comments
 
 # Save comments to CSV file
 def save_comments(file, comments):
-    try:
-        comments.to_csv(file, index=False)
-        st.write(f"Successfully saved to {file}")
-    except Exception as e:
-        st.error(f"Error saving to file {file}: {e}")
+    comments.to_csv(file, index=False)
 
 # Display comments on the webpage
 def display_comments(comments):
     st.write("### Comments")
-    if comments.empty:
-        st.write("No comments yet. Be the first to add one!")
-    else:
-        for index, row in comments.iterrows():
-            st.write(f"**{row['name']}**: {row['comment']}")
+    for index, row in comments.iterrows():
+        st.write(f"**{row['name']}**: {row['comment']}")
 
 # Add new comment to the CSV file
 def add_comment(file, name, comment):
@@ -46,13 +30,10 @@ def add_comment(file, name, comment):
 # Main application
 st.title("Comments Section")
 
-# Specify the path to the CSV file
-file_path = get_absolute_path('comments.csv')
+# Hardcoded path for the CSV file in the /streamlit/ directory
+file_path = '/streamlit/comments.csv'
 
-# Ensure the directory exists
-os.makedirs(os.path.dirname(file_path), exist_ok=True)
-
-# Check if the file exists
+# Check if the file exists and create if it does not
 if not os.path.isfile(file_path):
     save_comments(file_path, pd.DataFrame(columns=['name', 'comment']))
 
