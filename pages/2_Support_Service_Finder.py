@@ -18,7 +18,7 @@ def initialize_session_state():
 
 def check_login():
     if (st.session_state.get("password_correct") == None) or (st.session_state.get("password_correct") == False):
-        st.write("Please login at the home page the username is myofree and the password is imfree123")
+        st.write("Please login at the home page the username is multichannel and the password is imfree123")
         st.stop()
 
 def display_header():

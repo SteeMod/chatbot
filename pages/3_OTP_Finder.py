@@ -12,7 +12,7 @@ openai.api_key = api_key
 
 # Check if the user is logged in
 if not st.session_state.get("password_correct"):
-    st.write("Please login at the home page the username is myofree and the password is imfree123")
+    st.write("Please login at the home page the username is multichannel and the password is imfree123")
     st.stop()
 
 # Set page configuration
