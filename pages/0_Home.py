@@ -39,7 +39,7 @@ def check_password():
 
 
 # Header
-title = "MyOFreeApp"
+title = "Multi Channel Medication Virtual Assistant"
 
 # Set up the main app page
 st.subheader("Welcome to the homepage the username is myofree and the password is imfree123")

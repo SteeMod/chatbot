@@ -19,7 +19,7 @@ if not st.session_state.get("password_correct"):
 st.set_page_config(layout="wide")
 
 # Header
-st.title("MyOFreeApp")
+st.title("Multi Channel Medication Virtual Assistant")
 
 # Initialize session state
 if "phase" not in st.session_state:

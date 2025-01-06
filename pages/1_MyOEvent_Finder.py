@@ -19,14 +19,14 @@ if not st.session_state.get("password_correct"):
 st.set_page_config(layout="wide")
 
 # Header
-st.title("MyOFreeApp")
+st.title("Multi Channel Medication Virtual Assistant")
 
 # Initialize session state
 if "event_response" not in st.session_state:
     st.session_state.event_response = ""
 
 # Set up the main app page
-st.subheader("Welcome to MyOFreeApp let me help you find the  latest  Opiod related event ")
+st.subheader("Welcome to the Multi Channel Medication Virtual Assistant let me help you find the  latest  Opiod related event ")
 st.write("For example, I can help you find a Opiod Use Disorder  (OUD) event in Seattle, in the timeframe of September to December in 2024")
 
 # Create a form for user input
