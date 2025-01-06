@@ -42,7 +42,7 @@ def check_password():
 title = "Multi Channel Medication Virtual Assistant"
 
 # Set up the main app page
-st.subheader("Welcome to the homepage the username is myofree and the password is imfree123")
+st.subheader("Welcome to the homepage the username is multichannel and the password is imfree123")
 
 col1_auth, col2_auth = st.columns([1, 2])
 
